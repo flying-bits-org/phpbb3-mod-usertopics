@@ -12,17 +12,17 @@
     <author-notes lang="de">Ich hoffe ihr kommt mit dem MOD klar. Wenn nicht, könnt ihr auf phpbb.de oder phpbb.com eure Fragen stellen.</author-notes>
     <author-group>
       <author>
-        <realname>(N/A)</realname>
+        <realname>Joas Schilling</realname>
         <email>nickvergessen@gmx.de</email>
         <username>nickvergessen</username>
-        <homepage>http://www.flying-bits.org</homepage>
+        <homepage>http://www.flying-bits.org/</homepage>
         <contributions />
       </author>
     </author-group>
     <mod-version>
       <major>0</major>
       <minor>1</minor>
-      <revision>0</revision>
+      <revision>1</revision>
     </mod-version>
     <installation>
       <level>intermediate</level>
@@ -34,6 +34,24 @@
       </target-version>
     </installation>
     <history>
+      <entry>
+        <date>2008-06-15</date>
+        <rev-version>
+          <major>0</major>
+          <minor>1</minor>
+          <revision>1</revision>
+        </rev-version>
+        <changelog lang="en-GB">
+          <change>little correction for the search-links</change>
+          <change>brought back its own resync</change>
+          <change>little mistake in the includes/functions_posting.php</change>
+        </changelog>
+        <changelog lang="de">
+          <change>kleine Korrektur für die Such-Links</change>
+          <change>eigene Resyncronisier Option ist wieder da</change>
+          <change>kleiner Fehler in der includes/functions_posting.php</change>
+        </changelog>
+      </entry>
       <entry>
         <date>2008-04-24</date>
         <rev-version>
@@ -115,6 +133,22 @@
   </header>
   <action-group>
     <sql>ALTER TABLE `phpbb_users` ADD `user_topics` mediumint(8) unsigned DEFAULT "0" NOT NULL AFTER user_posts;</sql>
+    <open src="adm/style/acp_main.html">
+      <edit>
+        <find><![CDATA[			<form id="action_user_form" method="post" action="{U_ACTION}">
+				<dl>
+					<dt><label for="action_user">{L_RESYNC_POSTCOUNTS}</label><br /><span>{L_RESYNC_POSTCOUNTS_EXPLAIN}</span></dt>
+					<dd><input type="hidden" name="action" value="user" /><input class="button2" type="submit" id="action_user" name="action_user" value="{L_RUN}" /></dd>
+				</dl>
+			</form>]]></find>
+        <action type="after-add"><![CDATA[			<form id="action_topics_form" method="post" action="{U_ACTION}">
+				<dl>
+					<dt><label for="action_topics">{L_RESYNC_TOPICCOUNTS}</label><br /><span>{L_RESYNC_TOPICCOUNTS_EXPLAIN}</span></dt>
+					<dd><input type="hidden" name="action" value="topics" /><input class="button2" type="submit" id="action_topics" name="action_topics" value="{L_RUN}" /></dd>
+				</dl>
+			</form>]]></action>
+      </edit>
+    </open>
     <open src="memberlist.php">
       <edit>
         <find><![CDATA[$percentage = ($config['num_posts']) ? min(100, ($member['user_posts'] / $config['num_posts']) * 100) : 0;]]></find>
@@ -148,7 +182,7 @@
       <edit>
         <find><![CDATA['S_JABBER_ENABLED'	=> ($config['jab_enable']) ? true : false,]]></find>
         <action type="after-add"><![CDATA[		'TOPICS'			=> ($data['user_topics']) ? $data['user_topics'] : 0,
-		'U_SEARCH_USER_TOPICS'	=> ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.$phpEx", "author_id=$user_id&amp;sr=topics") : '',]]></action>
+		'U_SEARCH_USER_TOPICS'	=> ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.$phpEx", "author_id=$user_id&amp;sr=topics&amp;sf=firstpost") : '',]]></action>
       </edit>
     </open>
     <open src="viewtopic.php">
@@ -199,22 +233,36 @@
 
 			$sql_data[USERS_TABLE]['stat'][] = "user_lastpost_time = $current_time" . (($auth->acl_get('f_postcount', $data['forum_id'])) ? ', user_posts = user_posts + 1' : '');]]></find>
         <inline-edit>
-            <inline-find><![CDATA[', user_posts = user_posts + 1)]]></inline-find>
+            <inline-find><![CDATA[', user_posts = user_posts + 1]]></inline-find>
             <inline-action type="after-add"><![CDATA[ , user_topics = user_topics + 1]]></inline-action>
         </inline-edit>
       </edit>
     </open>
     <open src="includes/acp/acp_main.php">
       <edit>
-        <find><![CDATA[						while ($row = $db->sql_fetchrow($result))
+        <find><![CDATA[					case 'user':
+						$confirm = true;
+						$confirm_lang = 'RESYNC_POSTCOUNTS_CONFIRM';
+					break;]]></find>
+        <action type="after-add"><![CDATA[					case 'topics':
+						$confirm = true;
+						$confirm_lang = 'RESYNC_TOPICCOUNTS_CONFIRM';
+					break;]]></action>
+      </edit>
+      <edit>
+        <find><![CDATA[						add_log('admin', 'LOG_RESYNC_POSTCOUNTS');
+
+					break;]]></find>
+        <action type="after-add"><![CDATA[					case 'topics':
+						if (!$auth->acl_get('a_board'))
 						{
-							$db->sql_query('UPDATE ' . USERS_TABLE . " SET user_posts = {$row['num_posts']} WHERE user_id = {$row['user_id']}");
+							trigger_error($user->lang['NO_AUTH_OPERATION'] . adm_back_link($this->u_action), E_USER_WARNING);
 						}
-						$db->sql_freeresult($result);]]></find>
-        <action type="after-add"><![CDATA[						$sql = 'SELECT COUNT(t.topic_id) AS num_topics, u.user_id
+
+						$sql = 'SELECT COUNT(p.post_id) AS num_topics, u.user_id
 							FROM ' . USERS_TABLE . ' u
 							LEFT JOIN  ' . TOPICS_TABLE . ' t ON (u.user_id = t.topic_poster)
-							LEFT JOIN  ' . POSTS_TABLE . ' p ON (t.topic_first_post_id = p.post_id AND p.post_postcount = 1)
+							LEFT JOIN  ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id AND p.post_postcount = 1)
 							GROUP BY u.user_id';
 						$result = $db->sql_query($sql);
 
@@ -222,7 +270,11 @@
 						{
 							$db->sql_query('UPDATE ' . USERS_TABLE . " SET user_topics = {$row['num_topics']} WHERE user_id = {$row['user_id']}");
 						}
-						$db->sql_freeresult($result);]]></action>
+						$db->sql_freeresult($result);
+
+						add_log('admin', 'LOG_RESYNC_TOPICCOUNTS');
+
+					break;]]></action>
       </edit>
     </open>
     <open src="includes/ucp/ucp_main.php">
@@ -238,7 +290,7 @@
         <action type="after-add"><![CDATA[					'TOPICS'				=> ($user->data['user_topics']) ? $user->data['user_topics'] : 0,
 					'TOPICS_DAY'			=> sprintf($user->lang['TOPIC_DAY'], $topics_per_day),
 					'TOPICS_PCT'			=> sprintf($user->lang['TOPIC_PCT'], $percentage_topics),
-					'U_SEARCH_USER_TOPICS'	=> ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.$phpEx", 'author_id=' . $user->data['user_id'] . '&amp;sr=topics') : '',]]></action>
+					'U_SEARCH_USER_TOPICS'	=> ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.$phpEx", 'author_id=' . $user->data['user_id'] . '&amp;sr=topics&amp;sf=firstpost') : '',]]></action>
       </edit>
     </open>
     <open src="includes/ucp/ucp_pm_viewmessage.php">
@@ -265,6 +317,19 @@
       <edit>
         <find><![CDATA['SEARCH_YOUR_POSTS'			=> 'Show your posts',]]></find>
         <action type="after-add"><![CDATA['SEARCH_YOUR_TOPICS'		=> 'Show your topics',]]></action>
+      </edit>
+    </open>
+    <open src="language/en/acp/common.php">
+      <edit>
+        <find><![CDATA[	'RESYNC_STATS_CONFIRM'			=> 'Are you sure you wish to resynchronise statistics?',
+	'RESYNC_STATS_EXPLAIN'			=> 'Recalculates the total number of posts, topics, users and files.',]]></find>
+        <action type="after-add"><![CDATA[	'RESYNC_TOPICCOUNTS'			=> 'Resynchronise topic counts',
+	'RESYNC_TOPICCOUNTS_EXPLAIN'	=> 'Only existing topics will be taken into consideration. Pruned topics will not be counted.',
+	'RESYNC_TOPICCOUNTS_CONFIRM'	=> 'Are you sure you wish to resynchronise topic counts?',]]></action>
+      </edit>
+      <edit>
+        <find><![CDATA['LOG_RESYNC_STATS'			=> '<strong>Post, topic and user statistics resynchronised</strong>',]]></find>
+        <action type="after-add"><![CDATA['LOG_RESYNC_TOPICCOUNTS'	=> '<strong>User topic counts resynchronised</strong>',]]></action>
       </edit>
     </open>
     <open src="styles/prosilver/template/memberlist_body.html">
