@@ -22,7 +22,7 @@
     <mod-version>
       <major>0</major>
       <minor>0</minor>
-      <revision>1</revision>
+      <revision>2</revision>
     </mod-version>
     <installation>
       <level>intermediate</level>
@@ -34,6 +34,24 @@
       </target-version>
     </installation>
     <history>
+      <entry>
+        <date>2007-07-18</date>
+        <rev-version>
+          <major>0</major>
+          <minor>0</minor>
+          <revision>2</revision>
+        </rev-version>
+        <changelog lang="en-GB">
+          <change>fixed "do not count post" handle on resyncronize</change>
+          <change>fixed topic delete function in MCP</change>
+          <change>fixed delete first post of topic</change>
+        </changelog>
+        <changelog lang="de">
+          <change>"Zähler nicht erhöhen" repairiert bei der Resyncronisierungs-Option</change>
+          <change>fixed Löschfunktion im MCP</change>
+          <change>fixed löschen des ersten Beitrags</change>
+        </changelog>
+      </entry>
       <entry>
         <date>2007-07-17</date>
         <rev-version>
@@ -60,14 +78,14 @@
 		$percentage_topics = ($config['num_topics']) ? min(100, ($member['user_topics'] / $config['num_topics']) * 100) : 0;]]></action>
         <find><![CDATA[			'POSTS_DAY'			=> sprintf($user->lang['POST_DAY'], $posts_per_day),
 			'POSTS_PCT'			=> sprintf($user->lang['POST_PCT'], $percentage),]]></find>
-        <action type="after-add"><![CDATA[			'TOPICS_DAY'			=> sprintf($user->lang['TOPIC_DAY'], $topics_per_day),
-			'TOPICS_PCT'			=> sprintf($user->lang['TOPIC_PCT'], $percentage_topics),]]></action>
+        <action type="after-add"><![CDATA[			'TOPICS_DAY'		=> sprintf($user->lang['TOPIC_DAY'], $topics_per_day),
+			'TOPICS_PCT'		=> sprintf($user->lang['TOPIC_PCT'], $percentage_topics),]]></action>
         <find><![CDATA[$sort_key_text = array('a' => $user->lang['SORT_USERNAME'], 'b' => $user->lang['SORT_LOCATION'], 'c' => $user->lang['SORT_JOINED'], 'd' => $user->lang['SORT_POST_COUNT'], 'e' => $user->lang['SORT_EMAIL'], 'f' => $user->lang['WEBSITE'], 'g' => $user->lang['ICQ'], 'h' => $user->lang['AIM'], 'i' => $user->lang['MSNM'], 'j' => $user->lang['YIM'], 'k' => $user->lang['JABBER']);]]></find>
         <inline-edit>
             <inline-find><![CDATA[, 'k' => $user->lang['JABBER']]]></inline-find>
             <inline-action type="after-add"><![CDATA[, 'o' => $user->lang['TOPICS']]]></inline-action>
         </inline-edit>
-        <find><![CDATA[$sort_key_sql = array('a' => 'u.username_clean', 'b' => 'u.user_from', 'c' => 'u.user_regdate', 'd' => 'u.user_posts', 'e' => 'u.user_email', 'f' => 'u.user_website', 'g' => 'u.user_icq', 'h' => 'u.user_aim', 'i' => 'u.user_msnm', 'j' => 'u.user_yim', 'k' => 'u.user_jabber', 'o' => 'u.user_topics');]]></find>
+        <find><![CDATA[$sort_key_sql = array('a' => 'u.username_clean', 'b' => 'u.user_from', 'c' => 'u.user_regdate', 'd' => 'u.user_posts', 'e' => 'u.user_email', 'f' => 'u.user_website', 'g' => 'u.user_icq', 'h' => 'u.user_aim', 'i' => 'u.user_msnm', 'j' => 'u.user_yim', 'k' => 'u.user_jabber');]]></find>
         <inline-edit>
             <inline-find><![CDATA[, 'k' => 'u.user_jabber']]></inline-find>
             <inline-action type="after-add"><![CDATA[, 'o' => 'u.user_topics']]></inline-action>
@@ -114,13 +132,35 @@
 			</form>]]></action>
       </edit>
     </open>
+    <open src="includes/functions_admin.php">
+      <edit>
+        <find><![CDATA[// Making sure that delete_posts does not call delete_topics again...]]></find>
+        <action type="before-add"><![CDATA[	$sql = 'SELECT topic_id, forum_id, topic_approved, topic_poster
+		FROM ' . TOPICS_TABLE . '
+		WHERE ' . $where_clause;
+	$result = $db->sql_query($sql);
+	while ($row = $db->sql_fetchrow($result))
+	{
+		$sql = 'UPDATE ' . USERS_TABLE . "
+			SET user_topics = user_topics - 1
+			WHERE user_id = '" . $row['topic_poster'] . "'";
+		$db->sql_query($sql);
+	}
+	$db->sql_freeresult($result);]]></action>
+      </edit>
+    </open>
     <open src="includes/functions_posting.php">
       <edit>
-        <find><![CDATA[//	$sql_data[USERS_TABLE] = ($data['post_postcount']) ? 'user_posts = user_posts - 1' : '';]]></find>
-        <action type="after-add"><![CDATA[	if ($post_mode == 'delete_topic' && $data['poster_id'] != ANONYMOUS)
-	{
-		$sql_data[USERS_TABLE] = ($data['post_postcount']) ? 'user_topics = user_topics - 1' : '';
-	}]]></action>
+        <find><![CDATA[			// Decrementing topic_replies here is fine because this case only happens if there is more than one post within the topic - basically removing one "reply"
+			$sql_data[TOPICS_TABLE] .= ', topic_replies_real = topic_replies_real - 1' . (($data['post_approved']) ? ', topic_replies = topic_replies - 1' : '');]]></find>
+        <action type="after-add"><![CDATA[			$sql_data[USERS_TABLE] = ($data['post_postcount']) ? 'user_topics = user_topics - 1' : '';
+			if ($row['post_postcount'])
+			{
+				$sql = 'UPDATE ' . USERS_TABLE . "
+						SET user_topics = user_topics + 1
+							WHERE user_id = '" . $row['poster_id'] . "'";
+				$db->sql_query($sql);
+			}]]></action>
         <find><![CDATA[$sql_data[USERS_TABLE]['stat'][] = "user_lastpost_time = $current_time" . (($auth->acl_get('f_postcount', $data['forum_id'])) ? ', user_posts = user_posts + 1' : '');]]></find>
         <inline-edit>
             <inline-find><![CDATA[', user_posts = user_posts + 1' : '')]]></inline-find>
@@ -165,14 +205,29 @@
 							trigger_error($user->lang['NO_AUTH_OPERATION'] . adm_back_link($this->u_action), E_USER_WARNING);
 						}
 
-						$sql = 'SELECT COUNT(topic_id) AS num_topics, topic_poster
-							FROM ' . TOPICS_TABLE . '
-							GROUP BY topic_poster';
+						$sql = 'SELECT user_topics, user_id
+							FROM ' . USERS_TABLE . '
+							WHERE user_topics >= 1';
 						$result = $db->sql_query($sql);
 
 						while ($row = $db->sql_fetchrow($result))
 						{
-							$db->sql_query('UPDATE ' . USERS_TABLE . " SET user_topics = {$row['num_topics']} WHERE user_id = {$row['topic_poster']}");
+							$db->sql_query('UPDATE ' . USERS_TABLE . " SET user_topics = 0 WHERE user_id = {$row['user_id']}");
+						}
+						$db->sql_freeresult($result);
+
+						$sql = 'SELECT COUNT(p.post_id) AS num_topics, p.poster_id
+							FROM ' . POSTS_TABLE . ' p, 
+							LEFT JOIN ' . TOPICS_TABLE . ' t
+								ON (p.post_id = t.topic_first_post_id)
+								WHERE p.post_postcount = 1
+								AND p.post_id = t.topic_first_post_id
+							GROUP BY p.poster_id';
+						$result = $db->sql_query($sql);
+
+						while ($row = $db->sql_fetchrow($result))
+						{
+							$db->sql_query('UPDATE ' . USERS_TABLE . " SET user_topics = {$row['num_topics']} WHERE user_id = {$row['poster_id']}");
 						}
 						$db->sql_freeresult($result);
 
@@ -203,9 +258,9 @@
     <open src="language/de/common.php">
       <edit>
         <find><![CDATA['default_dateformat'	=> 'D j. M Y, H:i', // Mo 1. Jan 2007, 13:57]]></find>
-        <action type="after-add"><![CDATA[	'TOTAL_TOPICS'				=> 'Themen insgesamt',
-	'TOPIC_DAY'					=> '%.2f Themen pro Tag',
-	'TOPIC_PCT'					=> '%.2f%% aller Themen',]]></action>
+        <action type="after-add"><![CDATA[	'TOTAL_TOPICS'			=> 'Themen insgesamt',
+	'TOPIC_DAY'				=> '%.2f Themen pro Tag',
+	'TOPIC_PCT'				=> '%.2f%% aller Themen',]]></action>
       </edit>
     </open>
     <open src="language/de/memberlist.php">
@@ -268,7 +323,7 @@
             <inline-action type="after-add"><![CDATA[{L_COMMA_SEPARATOR}<a href="{U_SORT_TOPICS}#memberlist">{L_TOPICS}</a>]]></inline-action>
         </inline-edit>
         <find><![CDATA[<td class="posts"><!-- IF memberrow.POSTS --><a href="{memberrow.U_SEARCH_USER}" title="{L_SEARCH_USER_POSTS}">{memberrow.POSTS}</a><!-- ELSE -->{memberrow.POSTS}<!-- ENDIF --></td>]]></find>
-        <action type="after-add"><![CDATA[<td class="posts"><!-- IF memberrow.POSTS or memberrow.TOPICS --><!-- IF memberrow.POSTS --><div><a href="{memberrow.U_SEARCH_USER}" title="{L_SEARCH_USER_POSTS}">{memberrow.POSTS}</a><!-- IF memberrow.TOPICS -->{L_COMMA_SEPARATOR}<!-- ENDIF --></div><!-- ENDIF --><!-- IF memberrow.TOPICS --><div><a href="{memberrow.U_SEARCH_USER_TOPICS}" title="{L_SEARCH_USER_TOPICS}">{memberrow.TOPICS}</a></div><!-- ENDIF --><!-- ELSE -->&nbsp;<!-- ENDIF --></td>]]></action>
+        <action type="replace-with"><![CDATA[<td class="posts"><!-- IF memberrow.POSTS or memberrow.TOPICS --><!-- IF memberrow.POSTS --><div>{L_POSTS} <a href="{memberrow.U_SEARCH_USER}" title="{L_SEARCH_USER_POSTS}">{memberrow.POSTS}</a></div><!-- IF memberrow.TOPICS --><!-- ENDIF --><!-- ENDIF --><!-- IF memberrow.TOPICS --><div>{L_TOPICS} <a href="{memberrow.U_SEARCH_USER_TOPICS}" title="{L_SEARCH_USER_TOPICS}">{memberrow.TOPICS}</a></div><!-- ENDIF --><!-- ELSE -->&nbsp;<!-- ENDIF --></td>]]></action>
       </edit>
     </open>
     <open src="styles/prosilver/template/memberlist_view.html">
@@ -295,6 +350,12 @@
         <action type="after-add"><![CDATA[<!-- IF postrow.POSTER_TOPICS != '' --><dd><strong>{L_TOPICS}:</strong> {postrow.POSTER_TOPICS}</dd><!-- ENDIF -->]]></action>
       </edit>
     </open>
+    <open src="styles/prosilver/theme/common.css">
+      <edit>
+        <find><![CDATA[table.table1 .posts      { text-align: center !important; width: 7%; }]]></find>
+        <action type="replace-with"><![CDATA[table.table1 .posts	{ text-align: center !important; width: 15%; }]]></action>
+      </edit>
+    </open>
     <open src="styles/subsilver2/template/memberlist_body.html">
       <edit>
         <find><![CDATA[<th nowrap="nowrap" width="10%"><a href="{U_SORT_POSTS}">{L_POSTS}</a></th>]]></find>
@@ -305,7 +366,7 @@
         <find><![CDATA[<td class="gen" align="center">{memberrow.POSTS}</td>]]></find>
         <inline-edit>
             <inline-find><![CDATA[{memberrow.POSTS}]]></inline-find>
-            <inline-action type="after-add"><![CDATA[{L_COMMA_SEPARATOR}{memberrow.TOPICS}]]></inline-action>
+            <inline-action type="replace-with"><![CDATA[{L_POSTS} {memberrow.POSTS}<!-- IF memberrow.POSTS and memberrow.TOPICS --><br /><!-- ENDIF --><!-- IF memberrow.TOPICS -->{L_TOPICS} {memberrow.TOPICS}<!-- ENDIF -->]]></inline-action>
         </inline-edit>
       </edit>
     </open>
@@ -339,7 +400,7 @@
     </open>
     <open src="styles/subsilver2/template/viewtopic_body.html">
       <edit>
-        <find><![CDATA[!-- IF postrow.POSTER_POSTS != '' --><br /><b>{L_POSTS}:</b> {postrow.POSTER_POSTS}<!-- ENDIF -->]]></find>
+        <find><![CDATA[<!-- IF postrow.POSTER_POSTS != '' --><br /><b>{L_POSTS}:</b> {postrow.POSTER_POSTS}<!-- ENDIF -->]]></find>
         <action type="after-add"><![CDATA[<!-- IF postrow.POSTER_TOPICS != '' --><br /><b>{L_TOPICS}:</b> {postrow.POSTER_TOPICS}<!-- ENDIF -->]]></action>
       </edit>
     </open>
