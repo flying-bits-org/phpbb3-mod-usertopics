@@ -22,7 +22,7 @@
     <mod-version>
       <major>0</major>
       <minor>0</minor>
-      <revision>3</revision>
+      <revision>4</revision>
     </mod-version>
     <installation>
       <level>intermediate</level>
@@ -34,6 +34,22 @@
       </target-version>
     </installation>
     <history>
+      <entry>
+        <date>2007-07-25</date>
+        <rev-version>
+          <major>0</major>
+          <minor>0</minor>
+          <revision>4</revision>
+        </rev-version>
+        <changelog lang="en-GB">
+          <change>fixed link on the main-page of the UCP</change>
+          <change>fixed a problem in the premodded files</change>
+        </changelog>
+        <changelog lang="de">
+          <change>Link auf der Hauptseite des UCP korregiert</change>
+          <change>Ein Fehler in den Premodded-Dateien wurde behoben</change>
+        </changelog>
+      </entry>
       <entry>
         <date>2007-07-22</date>
         <rev-version>
@@ -175,7 +191,9 @@
 							WHERE user_id = '" . $row['poster_id'] . "'";
 				$db->sql_query($sql);
 			}]]></action>
-        <find><![CDATA[$sql_data[USERS_TABLE]['stat'][] = "user_lastpost_time = $current_time" . (($auth->acl_get('f_postcount', $data['forum_id'])) ? ', user_posts = user_posts + 1' : '');]]></find>
+        <find><![CDATA[			}
+
+			$sql_data[USERS_TABLE]['stat'][] = "user_lastpost_time = $current_time" . (($auth->acl_get('f_postcount', $data['forum_id'])) ? ', user_posts = user_posts + 1' : '');]]></find>
         <inline-edit>
             <inline-find><![CDATA[', user_posts = user_posts + 1' : '')]]></inline-find>
             <inline-action type="after-add"><![CDATA[ . (($auth->acl_get('f_postcount', $data['forum_id'])) ? ', user_topics = user_topics + 1' : '')]]></inline-action>
@@ -260,7 +278,8 @@
 					'POSTS_PCT'			=> sprintf($user->lang['POST_PCT'], $percentage),]]></find>
         <action type="after-add"><![CDATA[					'TOPICS'				=> ($user->data['user_topics']) ? $user->data['user_topics'] : 0,
 					'TOPICS_DAY'			=> sprintf($user->lang['TOPIC_DAY'], $topics_per_day),
-					'TOPICS_PCT'			=> sprintf($user->lang['TOPIC_PCT'], $percentage_topics),]]></action>
+					'TOPICS_PCT'			=> sprintf($user->lang['TOPIC_PCT'], $percentage_topics),
+					'U_SEARCH_USER_TOPICS'	=> ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.$phpEx", 'author_id=' . $user->data['user_id'] . '&amp;sr=topics') : '',]]></action>
       </edit>
     </open>
     <open src="includes/ucp/ucp_pm_viewmessage.php">
