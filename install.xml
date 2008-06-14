@@ -22,7 +22,7 @@
     <mod-version>
       <major>0</major>
       <minor>0</minor>
-      <revision>2</revision>
+      <revision>3</revision>
     </mod-version>
     <installation>
       <level>intermediate</level>
@@ -35,7 +35,21 @@
     </installation>
     <history>
       <entry>
-        <date>2007-07-18</date>
+        <date>2007-07-22</date>
+        <rev-version>
+          <major>0</major>
+          <minor>0</minor>
+          <revision>3</revision>
+        </rev-version>
+        <changelog lang="en-GB">
+          <change>fixed a mistake in the premodded files and the manual</change>
+        </changelog>
+        <changelog lang="de">
+          <change>ein Fehler in der Anleitung und den premodded Dateien behoben</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2007-07-21</date>
         <rev-version>
           <major>0</major>
           <minor>0</minor>
@@ -217,10 +231,10 @@
 						$db->sql_freeresult($result);
 
 						$sql = 'SELECT COUNT(p.post_id) AS num_topics, p.poster_id
-							FROM ' . POSTS_TABLE . ' p, 
+							FROM ' . POSTS_TABLE . ' p
 							LEFT JOIN ' . TOPICS_TABLE . ' t
 								ON (p.post_id = t.topic_first_post_id)
-								WHERE p.post_postcount = 1
+							WHERE p.post_postcount = 1
 								AND p.post_id = t.topic_first_post_id
 							GROUP BY p.poster_id';
 						$result = $db->sql_query($sql);
