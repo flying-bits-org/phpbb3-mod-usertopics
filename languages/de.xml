@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="../modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.0.1.xsd">
+  <header>
+    <license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+    <title lang="en-gb">user topics MOD</title>
+    <title lang="de">user topics MOD</title>
+    <description lang="en-gb">Adds the number of opened user-topics to the number of user-posts on all pages.</description>
+    <description lang="de">Fügt die Anzahl der vom Benutzer eröffneten Themen zu der, der Beiträge in sämtlichen Dateien hinzu.</description>
+    <author-notes lang="en-gb">i hope you get it installed, otherwise you can ask for help on phpbb.de and phpbb.com</author-notes>
+    <author-notes lang="de">Ich hoffe ihr kommt mit dem MOD klar. Wenn nicht, könnt ihr auf phpbb.de oder phpbb.com eure Fragen stellen.</author-notes>
+    <author-group>
+      <author>
+        <realname>(N/A)</realname>
+        <email>nickvergessen@gmx.de</email>
+        <username>nickvergessen</username>
+        <homepage>http://www.flying-bits.org</homepage>
+        <contributions />
+      </author>
+    </author-group>
+    <mod-version>
+      <major>0</major>
+      <minor>1</minor>
+      <revision>0</revision>
+    </mod-version>
+    <installation>
+      <level>intermediate</level>
+      <time>900</time>
+      <target-version>
+        <target-primary>3.0.1</target-primary>
+        <target-major allow="exact">3</target-major>
+        <target-minor allow="exact">0</target-minor>
+      </target-version>
+    </installation>
+    <history>
+      <entry>
+        <date>2008-04-24</date>
+        <rev-version>
+          <major>0</major>
+          <minor>1</minor>
+          <revision>0</revision>
+        </rev-version>
+        <changelog lang="en-GB">
+          <change>up to phpBB 3.0.1</change>
+        </changelog>
+        <changelog lang="de">
+          <change>für phpBB 3.0.1</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2007-07-25</date>
+        <rev-version>
+          <major>0</major>
+          <minor>0</minor>
+          <revision>4</revision>
+        </rev-version>
+        <changelog lang="en-GB">
+          <change>fixed link on the main-page of the UCP</change>
+          <change>fixed a problem in the premodded files</change>
+        </changelog>
+        <changelog lang="de">
+          <change>Link auf der Hauptseite des UCP korregiert</change>
+          <change>Ein Fehler in den Premodded-Dateien wurde behoben</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2007-07-22</date>
+        <rev-version>
+          <major>0</major>
+          <minor>0</minor>
+          <revision>3</revision>
+        </rev-version>
+        <changelog lang="en-GB">
+          <change>fixed a mistake in the premodded files and the manual</change>
+        </changelog>
+        <changelog lang="de">
+          <change>ein Fehler in der Anleitung und den premodded Dateien behoben</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2007-07-21</date>
+        <rev-version>
+          <major>0</major>
+          <minor>0</minor>
+          <revision>2</revision>
+        </rev-version>
+        <changelog lang="en-GB">
+          <change>fixed "do not count post" handle on resyncronize</change>
+          <change>fixed topic delete function in MCP</change>
+          <change>fixed delete first post of topic</change>
+        </changelog>
+        <changelog lang="de">
+          <change>"Zähler nicht erhöhen" repairiert bei der Resyncronisierungs-Option</change>
+          <change>fixed Löschfunktion im MCP</change>
+          <change>fixed löschen des ersten Beitrags</change>
+        </changelog>
+      </entry>
+      <entry>
+        <date>2007-07-17</date>
+        <rev-version>
+          <major>0</major>
+          <minor>0</minor>
+          <revision>1</revision>
+        </rev-version>
+        <changelog lang="en-GB">
+          <change>first version</change>
+        </changelog>
+        <changelog lang="de">
+          <change>erste Version</change>
+        </changelog>
+      </entry>
+    </history>
+    <meta name="generator" content="Phpbb.ModTeam.Tools (c#)" />
+  </header>
+  <action-group>
+    <open src="language/de/common.php">
+      <edit>
+        <find><![CDATA['default_dateformat'	=> 'D j. M Y, H:i', // Mo 1. Jan 2007, 13:57]]></find>
+        <action type="after-add"><![CDATA[	'TOTAL_TOPICS'			=> 'Themen insgesamt',
+	'TOPIC_DAY'				=> '%.2f Themen pro Tag',
+	'TOPIC_PCT'				=> '%.2f%% aller Themen',]]></action>
+      </edit>
+    </open>
+    <open src="language/de/memberlist.php">
+      <edit>
+        <find><![CDATA['SEARCH_USER_POSTS'		=> 'Beiträge des Mitglieds anzeigen',]]></find>
+        <action type="after-add"><![CDATA['SEARCH_USER_TOPICS'		=> 'Themen des Mitglieds anzeigen',]]></action>
+      </edit>
+    </open>
+    <open src="language/de/ucp.php">
+      <edit>
+        <find><![CDATA[	'SEARCH_YOUR_POSTS'			=> 'Deine Beiträge anzeigen',]]></find>
+        <action type="after-add"><![CDATA[	'SEARCH_YOUR_TOPICS'		=> 'Deine Themen anzeigen',]]></action>
+      </edit>
+    </open>
+    <diy-instructions lang="en-gb">Don't forget to clear the cache!
+After the install, you have to resynchronise it. Therefor go to the ACP and do it (on the first page)
+If you want me to add your language file to the download, just leave me a pm:
+http://www.phpbb.com/community/ucp.php?i=pm&amp;mode=compose&amp;u=315319
+    </diy-instructions>
+    <diy-instructions lang="de">Nicht vergessen den Cache zuleeren!
+Nach dem Installieren muss der MOD resyncronisiert werden, Dafür ins ACP gehen und ausführen (auf der ersten Seite zufinden)
+Wenn ihr den MOD in eine weitere Sprache übersetzt habt, schickt mir doch eine pm:
+http://www.phpbb.com/community/ucp.php?i=pm&amp;mode=compose&amp;u=315319
+    </diy-instructions>
+  </action-group>
+</mod>
