@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <mods>
-	<nv_wwh>
+	<nv_usertopics>
 		<author>nickvergesssen</author>
 		<title lang="en">NV usertopics</title>
 		<description lang="en"></description>
@@ -14,7 +14,7 @@
 		</mod_version>
 		<installation>
 			<level>easy</level>
-			<time>120</time>
+			<time>600</time>
 			<target-version>
 				<target-primary>3.0.2</target-primary>
 				<target-major allow="exact">3</target-major>
@@ -23,12 +23,12 @@
 		</installation>
 		<upgrade>
 			<level>easy</level>
-			<time>120</time>
+			<time>600</time>
 			<target-version>
 				<target-primary>3.0.2</target-primary>
 				<target-major allow="exact">3</target-major>
 				<target-minor allow="exact">0</target-minor>
 			</target-version>
 		</upgrade>
-	</nv_wwh>
+	</nv_usertopics>
 </mods>
