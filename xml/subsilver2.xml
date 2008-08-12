@@ -41,6 +41,8 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
             <inline-find><![CDATA[{L_POSTS}</a>]]></inline-find>
             <inline-action type="after-add"><![CDATA[{L_COMMA_SEPARATOR}<a href="{U_SORT_TOPICS}">{L_TOPICS}</a>]]></inline-action>
         </inline-edit>
+      </edit>
+      <edit>
         <find><![CDATA[<td class="gen" align="center">{memberrow.POSTS}</td>]]></find>
         <inline-edit>
             <inline-find><![CDATA[{memberrow.POSTS}]]></inline-find>
