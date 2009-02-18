@@ -1,7 +1,7 @@
 [b]MOD Name:[/b] NV usertopics
 [b]Autor:[/b] [url=http://www.flying-bits.org][b]nickvergessen[/b][/url]
 
-[b]MOD Version:[/b] 1.0.0
+[b]MOD Version:[/b] 1.0.1
 [b]MOD Beschreibung:[/b]
 [list]Zeig neben der Anzahl der Beiträge des Benutzers, auch die Anzahl der Themen an:
 [*]im Profil
@@ -15,5 +15,4 @@
 [b]MOD Repository[/b]: http://code.bantux.de/svn/nv-usertopics (SVN/Subversion)
 [b]Repository durchsuchen[/b]: http://code.bantux.de/repositories/show/nv-usertopics
 
-[b]MOD Download:[/b] [size=150][b][url=http://www.flying-bits.org/download.php?mod_id=9]Download v1.0.0[/url][/b][/size]
-Anmerkung: von 0.1.1 zu 1.0.0 gab es keine Änderungen außer einem Update der MODx-Version
+[b]MOD Download:[/b] [size=150][b][url=http://www.flying-bits.org/download.php?mod_id=9]Download v1.0.1[/url][/b][/size]
