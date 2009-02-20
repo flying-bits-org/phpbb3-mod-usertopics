@@ -248,7 +248,10 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 					break;]]></action>
       </edit>
       <edit>
-        <find><![CDATA[						add_log('admin', 'LOG_RESYNC_POSTCOUNTS');
+        <find><![CDATA[							$start += $step;
+						}
+
+						add_log('admin', 'LOG_RESYNC_POSTCOUNTS');
 
 					break;]]></find>
         <action type="after-add"><![CDATA[					case 'topics':
@@ -287,7 +290,9 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 				}]]></action>
       </edit>
       <edit>
-        <find><![CDATA[		if ($total_topics)
+        <find><![CDATA[		}
+
+		if ($total_topics)
 		{]]></find>
         <action type="after-add"><![CDATA[			if (sizeof($user_topics_sql))
 			{
