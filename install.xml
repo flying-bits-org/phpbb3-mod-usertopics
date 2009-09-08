@@ -20,11 +20,11 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
         <homepage>http://www.flying-bits.org/</homepage>
       </author>
     </author-group>
-    <mod-version>1.0.2</mod-version>
+    <mod-version>1.0.3</mod-version>
     <installation>
       <level>intermediate</level>
-      <time>900</time>
-      <target-version>3.0.4</target-version>
+      <time>1200</time>
+      <target-version>3.0.6</target-version>
     </installation>
     <link-group>
       <link type="language" lang="de" href="contrib/de.xml">Anleitung für das deutsche Sprachpaket</link>
@@ -178,9 +178,12 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
         <action type="after-add"><![CDATA['U_SORT_TOPICS'			=> $sort_url . '&amp;sk=o&amp;sd=' . (($sort_key == 'o' && $sort_dir == 'a') ? 'd' : 'a'),]]></action>
       </edit>
       <edit>
-        <find><![CDATA['S_JABBER_ENABLED'	=> ($config['jab_enable']) ? true : false,]]></find>
-        <action type="after-add"><![CDATA[		'TOPICS'			=> ($data['user_topics']) ? $data['user_topics'] : 0,
-		'U_SEARCH_USER_TOPICS'	=> ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.$phpEx", "author_id=$user_id&amp;sr=topics&amp;sf=firstpost") : '',]]></action>
+        <find><![CDATA['POSTS'			=> ($data['user_posts']) ? $data['user_posts'] : 0,]]></find>
+        <action type="after-add"><![CDATA[		'TOPICS'		=> ($data['user_topics']) ? $data['user_topics'] : 0,]]></action>
+      </edit>
+      <edit>
+        <find><![CDATA['U_SEARCH_USER'	=> ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.$phpEx", "author_id=$user_id&amp;sr=posts") : '',]]></find>
+        <action type="after-add"><![CDATA['U_SEARCH_USER_TOPICS'	=> ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.$phpEx", "author_id=$user_id&amp;sr=topics&amp;sf=firstpost") : '',]]></action>
       </edit>
     </open>
     <open src="viewtopic.php">
@@ -208,23 +211,66 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
     </open>
     <open src="includes/functions_admin.php">
       <edit>
-        <find><![CDATA[$sql = 'SELECT topic_id, forum_id, topic_approved, topic_moved_id]]></find>
-        <inline-edit>
-            <inline-find><![CDATA[, topic_approved]]></inline-find>
-            <inline-action type="after-add"><![CDATA[, topic_poster]]></inline-action>
-        </inline-edit>
+        <find><![CDATA[	$sql = 'UPDATE ' . POSTS_TABLE . '
+		SET forum_id = ' . $forum_row['forum_id'] . ", topic_id = $topic_id
+		WHERE " . $db->sql_in_set('post_id', $post_ids);
+	$db->sql_query($sql);]]></find>
+        <action type="before-add"><![CDATA[	$sql = 'SELECT p.poster_id
+		FROM ' . POSTS_TABLE . ' p
+		LEFT JOIN ' . TOPICS_TABLE . ' t
+			ON (t.topic_first_post_id = p.post_id)
+		WHERE p.post_postcount = 1
+			AND ' . $db->sql_in_set('t.topic_id', $topic_ids);
+	$result = $db->sql_query($sql);
+	while ($row = $db->sql_fetchrow($result))
+	{
+		$db->sql_return_on_error(true);
+		$db->sql_query('UPDATE ' . USERS_TABLE . ' SET user_topics = user_topics - 1 WHERE user_id = ' . (int) $row['poster_id']);
+		$db->sql_return_on_error(false);
+	}
+	$db->sql_freeresult($result);]]></action>
       </edit>
       <edit>
-        <find><![CDATA[			$approved_topics++;]]></find>
-        <action type="after-add"><![CDATA[			$sql = 'UPDATE ' . USERS_TABLE . " SET user_topics = user_topics - 1 WHERE user_id = '" . $row['topic_poster'] . "'";
-			$db->sql_query($sql);]]></action>
+        <find><![CDATA[	// Update posted information
+	update_posted_info($topic_ids);]]></find>
+        <action type="after-add"><![CDATA[
+	$sql = 'SELECT p.poster_id
+		FROM ' . POSTS_TABLE . ' p
+		LEFT JOIN ' . TOPICS_TABLE . ' t
+			ON (t.topic_first_post_id = p.post_id)
+		WHERE p.post_postcount = 1
+			AND ' . $db->sql_in_set('t.topic_id', $topic_ids);
+	$result = $db->sql_query($sql);
+	while ($row = $db->sql_fetchrow($result))
+	{
+		$db->sql_query('UPDATE ' . USERS_TABLE . ' SET user_topics = user_topics + 1 WHERE user_id = ' . (int) $row['poster_id']);
+	}
+	$db->sql_freeresult($result);]]></action>
       </edit>
     </open>
     <open src="includes/functions_posting.php">
       <edit>
+        <find><![CDATA[	if (!delete_posts('post_id', array($post_id), false, false))
+	{
+		// Try to delete topic, we may had an previous error causing inconsistency]]></find>
+        <action type="before-add"><![CDATA[	if (($post_mode == 'delete_topic') || ($post_mode == 'delete_first_post'))
+	{
+		if ($data['post_approved'] && $data['post_postcount'])
+		{
+			$db->sql_return_on_error(true);
+			$db->sql_query('UPDATE ' . USERS_TABLE . ' SET user_topics = user_topics - 1 WHERE user_id = ' . (int) $data['poster_id']);
+			$db->sql_return_on_error(false);
+		}
+	}]]></action>
+      </edit>
+      <edit>
         <find><![CDATA[			// Decrementing topic_replies here is fine because this case only happens if there is more than one post within the topic - basically removing one "reply"
 			$sql_data[TOPICS_TABLE] .= ', topic_replies_real = topic_replies_real - 1' . (($data['post_approved']) ? ', topic_replies = topic_replies - 1' : '');]]></find>
-        <action type="before-add"><![CDATA[$sql_data[USERS_TABLE] = 'user_topics = user_topics' . (($data['post_approved']) ? ' - 1' : '');]]></action>
+        <action type="before-add"><![CDATA[			if ($row['post_approved'] && $row['post_postcount'])
+			{
+				$sub_sql = 'UPDATE ' . USERS_TABLE . ' SET user_topics = user_topics + 1 WHERE user_id = ' . (int) $row['poster_id'];
+				$db->sql_query($sub_sql);
+			}]]></action>
       </edit>
       <edit>
         <find><![CDATA[			}
@@ -332,7 +378,7 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
     </open>
     <open src="includes/ucp/ucp_pm_viewmessage.php">
       <edit>
-        <find><![CDATA[		'AUTHOR_POSTS'		=> (!empty($user_info['user_posts'])) ? $user_info['user_posts'] : '',]]></find>
+        <find><![CDATA['AUTHOR_POSTS'		=> (int) $user_info['user_posts'],]]></find>
         <action type="after-add"><![CDATA['AUTHOR_TOPICS'		=> (!empty($user_info['user_topics'])) ? $user_info['user_topics'] : '',]]></action>
       </edit>
     </open>
@@ -385,7 +431,7 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
     <open src="styles/prosilver/template/memberlist_view.html">
       <edit>
         <find><![CDATA[			<dt>{L_TOTAL_POSTS}:</dt>
-				<dd>{POSTS} | <strong><a href="{U_SEARCH_USER}">{L_SEARCH_USER_POSTS}</a></strong>
+				<dd>{POSTS} <!-- IF S_DISPLAY_SEARCH -->| <strong><a href="{U_SEARCH_USER}">{L_SEARCH_USER_POSTS}</a></strong><!-- ENDIF -->
 					<!-- IF POSTS_PCT --><br />({POSTS_PCT} / {POSTS_DAY})<!-- ENDIF -->
 					<!-- IF POSTS_IN_QUEUE and U_MCP_QUEUE --><br />(<a href="{U_MCP_QUEUE}">{L_POSTS_IN_QUEUE}</a>)<!-- ELSEIF POSTS_IN_QUEUE --><br />({L_POSTS_IN_QUEUE})<!-- ENDIF -->
 				</dd>]]></find>
@@ -397,13 +443,13 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
     </open>
     <open src="styles/prosilver/template/ucp_main_front.html">
       <edit>
-        <find><![CDATA[<dt>{L_TOTAL_POSTS}:</dt> <dd><!-- IF POSTS_PCT -->{POSTS} | <strong><a href="{U_SEARCH_USER}">{L_SEARCH_YOUR_POSTS}</a></strong><br />({POSTS_DAY} / {POSTS_PCT})<!-- ELSE -->{POSTS}<!-- ENDIF --></dd>]]></find>
+        <find><![CDATA[<dt>{L_TOTAL_POSTS}:</dt> <dd><!-- IF POSTS_PCT -->{POSTS}<!-- IF S_DISPLAY_SEARCH --> | <strong><a href="{U_SEARCH_USER}">{L_SEARCH_YOUR_POSTS}</a></strong><!-- ENDIF --><br />({POSTS_DAY} / {POSTS_PCT})<!-- ELSE -->{POSTS}<!-- ENDIF --></dd>]]></find>
         <action type="after-add"><![CDATA[<dt>{L_TOTAL_TOPICS}:</dt> <dd><!-- IF TOPICS_PCT -->{TOPICS} | <strong><a href="{U_SEARCH_USER_TOPICS}">{L_SEARCH_YOUR_TOPICS}</a></strong><br />({TOPICS_DAY} / {TOPICS_PCT})<!-- ELSE -->{TOPICS}<!-- ENDIF --></dd>]]></action>
       </edit>
     </open>
     <open src="styles/prosilver/template/ucp_pm_viewmessage.html">
       <edit>
-        <find><![CDATA[<!-- IF AUTHOR_POSTS --><dd><strong>{L_POSTS}:</strong> {AUTHOR_POSTS}</dd><!-- ENDIF -->]]></find>
+        <find><![CDATA[<dd><strong>{L_POSTS}:</strong> {AUTHOR_POSTS}</dd>]]></find>
         <action type="after-add"><![CDATA[<!-- IF AUTHOR_TOPICS --><dd><strong>{L_TOPICS}:</strong> {AUTHOR_TOPICS}</dd><!-- ENDIF -->]]></action>
       </edit>
     </open>
