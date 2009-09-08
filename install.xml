@@ -436,7 +436,7 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 					<!-- IF POSTS_IN_QUEUE and U_MCP_QUEUE --><br />(<a href="{U_MCP_QUEUE}">{L_POSTS_IN_QUEUE}</a>)<!-- ELSEIF POSTS_IN_QUEUE --><br />({L_POSTS_IN_QUEUE})<!-- ENDIF -->
 				</dd>]]></find>
         <action type="after-add"><![CDATA[			<dt>{L_TOTAL_TOPICS}:</dt>
-				<dd>{TOPICS} | <strong><a href="{U_SEARCH_USER_TOPICS}">{L_SEARCH_USER_TOPICS}</a></strong>
+				<dd>{TOPICS}<!-- IF S_DISPLAY_SEARCH --> | <strong><a href="{U_SEARCH_USER_TOPICS}">{L_SEARCH_USER_TOPICS}</a></strong><!-- ENDIF -->
 					<!-- IF POSTS_PCT --><br />({TOPICS_PCT} / {TOPICS_DAY})<!-- ENDIF -->
 				</dd>]]></action>
       </edit>
@@ -444,7 +444,7 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
     <open src="styles/prosilver/template/ucp_main_front.html">
       <edit>
         <find><![CDATA[<dt>{L_TOTAL_POSTS}:</dt> <dd><!-- IF POSTS_PCT -->{POSTS}<!-- IF S_DISPLAY_SEARCH --> | <strong><a href="{U_SEARCH_USER}">{L_SEARCH_YOUR_POSTS}</a></strong><!-- ENDIF --><br />({POSTS_DAY} / {POSTS_PCT})<!-- ELSE -->{POSTS}<!-- ENDIF --></dd>]]></find>
-        <action type="after-add"><![CDATA[<dt>{L_TOTAL_TOPICS}:</dt> <dd><!-- IF TOPICS_PCT -->{TOPICS} | <strong><a href="{U_SEARCH_USER_TOPICS}">{L_SEARCH_YOUR_TOPICS}</a></strong><br />({TOPICS_DAY} / {TOPICS_PCT})<!-- ELSE -->{TOPICS}<!-- ENDIF --></dd>]]></action>
+        <action type="after-add"><![CDATA[<dt>{L_TOTAL_TOPICS}:</dt> <dd><!-- IF TOPICS_PCT -->{TOPICS}<!-- IF S_DISPLAY_SEARCH --> | <strong><a href="{U_SEARCH_USER_TOPICS}">{L_SEARCH_YOUR_TOPICS}</a></strong><!-- ENDIF --><br />({TOPICS_DAY} / {TOPICS_PCT})<!-- ELSE -->{TOPICS}<!-- ENDIF --></dd>]]></action>
       </edit>
     </open>
     <open src="styles/prosilver/template/ucp_pm_viewmessage.html">
