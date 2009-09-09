@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.2.xsd">
+	<header>
+		<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+
+		<title lang="en">NV usertopics</title>
+		<title lang="de">NV usertopics</title>
+
+		<description lang="en"><![CDATA[Adds the number of opened user-topics to the number of user-posts on all pages.]]></description>
+		<description lang="de"><![CDATA[Fügt die Anzahl der vom Benutzer eröffneten Themen zu der, der Beiträge in sämtlichen Dateien hinzu.]]></description>
+
+		<author-notes lang="de"><![CDATA[Die MOD untersützt die "MOD Version Check"-MOD von Handymman´:
+http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
+		<author-notes lang="en"><![CDATA[This MOD supports the "MOD Version Check"-MOD by Handymman´:
+http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
+
+		<author-group>
+			<author>
+				<realname>Joas Schilling</realname>
+				<email>nickvergessen@gmx.de</email>
+				<username>nickvergessen</username>
+				<homepage>http://www.flying-bits.org/</homepage>
+			</author>
+		</author-group>
+
+		<mod-version>1.0.3</mod-version>
+
+		<installation>
+			<level>intermediate</level>
+			<time>900</time>
+			<target-version>3.0.6</target-version>
+		</installation>
+	</header>
+
+	<action-group>
+		<open src="styles/subsilver2/template/memberlist_body.html">
+			<edit>
+				<find><![CDATA[<td class="gen" align="center">{L_POSTS} {memberrow.POSTS}<!-- IF memberrow.POSTS and memberrow.TOPICS --><br /><!-- ENDIF --><!-- IF memberrow.TOPICS -->{L_TOPICS} {memberrow.TOPICS}<!-- ENDIF --></td>]]></find>
+				<inline-edit>
+						<inline-find><![CDATA[{L_POSTS} {memberrow.POSTS}<!-- IF memberrow.POSTS and memberrow.TOPICS --><br /><!-- ENDIF --><!-- IF memberrow.TOPICS -->{L_TOPICS} {memberrow.TOPICS}<!-- ENDIF -->]]></inline-find>
+						<inline-action type="replace-with"><![CDATA[{memberrow.POSTS}]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+
+		<open src="styles/subsilver2/template/memberlist_view.html">
+			<edit>
+				<comment lang="de"><![CDATA[Es gibt keinen "Ersetze mit"-Code, da der Code gelöscht werden soll.]]></comment>
+				<comment lang="en"><![CDATA[There is no "replace-with"-code as you need to delete the code.]]></comment>
+				<find><![CDATA[			<tr>
+				<td class="gen" align="{S_CONTENT_FLOW_END}" valign="top" nowrap="nowrap">{L_TOTAL_TOPICS}: </td>
+				<td><b class="gen">{TOPICS}</b><span class="genmed"><!-- IF POSTS_PCT --><br />[{TOPICS_PCT} / {TOPICS_DAY}]<!-- ENDIF -->
+				<br /><a href="{U_SEARCH_USER_TOPICS}">{L_SEARCH_USER_TOPICS}</a></span></td>
+			</tr>]]></find>
+				<action type="replace-with"><![CDATA[]]></action>
+			</edit>
+		</open>
+
+		<open src="styles/subsilver2/template/ucp_main_front.html">
+			<edit>
+				<comment lang="de"><![CDATA[Es gibt keinen "Ersetze mit"-Code, da der Code gelöscht werden soll.]]></comment>
+				<comment lang="en"><![CDATA[There is no "replace-with"-code as you need to delete the code.]]></comment>
+				<find><![CDATA[		<tr> 
+			<td align="{S_CONTENT_FLOW_END}" valign="top" nowrap="nowrap"><b class="genmed">{L_TOTAL_TOPICS}: </b></td>
+			<td><!-- IF TOPICS_PCT --><b class="gen">{TOPICS}</b><br /><span class="genmed">[{TOPICS_PCT} / {TOPICS_DAY}]<br /><a href="{U_SEARCH_USER_TOPICS}">{L_SEARCH_YOUR_TOPICS}</a></span><!-- ELSE --><b class="gen">{TOPICS}<b><!-- ENDIF --></td>
+		</tr>]]></find>
+				<action type="replace-with"><![CDATA[]]></action>
+			</edit>
+		</open>
+	</action-group>
+</mod>

@@ -2,220 +2,245 @@
 <?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
 <!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
 <mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.2.xsd">
-  <header>
-    <license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
-    <title lang="en-gb">NV usertopics</title>
-    <title lang="de">NV usertopics</title>
-    <description lang="en-gb"><![CDATA[Adds the number of opened user-topics to the number of user-posts on all pages.]]></description>
-    <description lang="de"><![CDATA[Fügt die Anzahl der vom Benutzer eröffneten Themen zu der, der Beiträge in sämtlichen Dateien hinzu.]]></description>
-    <author-notes lang="de"><![CDATA[Die MOD untersützt die "MOD Version Check"-MOD von Handymman´:
+	<header>
+		<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+
+		<title lang="en">NV usertopics</title>
+		<title lang="de">NV usertopics</title>
+
+		<description lang="en"><![CDATA[Adds the number of opened user-topics to the number of user-posts on all pages.]]></description>
+		<description lang="de"><![CDATA[Fügt die Anzahl der vom Benutzer eröffneten Themen zu der, der Beiträge in sämtlichen Dateien hinzu.]]></description>
+
+		<author-notes lang="de"><![CDATA[Die MOD untersützt die "MOD Version Check"-MOD von Handymman´:
 http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
-    <author-notes lang="en-gb"><![CDATA[This MOD supports the "MOD Version Check"-MOD by Handymman´:
+		<author-notes lang="en"><![CDATA[This MOD supports the "MOD Version Check"-MOD by Handymman´:
 http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
-    <author-group>
-      <author>
-        <realname>Joas Schilling</realname>
-        <email>nickvergessen@gmx.de</email>
-        <username>nickvergessen</username>
-        <homepage>http://www.flying-bits.org/</homepage>
-      </author>
-    </author-group>
-    <mod-version>1.0.3</mod-version>
-    <installation>
-      <level>intermediate</level>
-      <time>1200</time>
-      <target-version>3.0.6</target-version>
-    </installation>
-    <link-group>
-      <link type="language" lang="de" href="contrib/de.xml">Anleitung für das deutsche Sprachpaket</link>
-      <link type="language" lang="en-gb" href="contrib/de.xml">Manual for German Language-set</link>
-      <link type="template" lang="de" href="contrib/subsilver2.xml">Anleitung für das Style subsilver2</link>
-      <link type="template" lang="en-gb" href="contrib/subsilver2.xml">Manual for subsilver2 Style</link>
-    </link-group>
-    <history>
-      <entry>
-        <date>2009-02-19</date>
-        <rev-version>1.0.2</rev-version>
-        <changelog lang="en-gb">
-          <change><![CDATA[Increase topic-counter on moderation-queue]]></change>
-        </changelog>
-        <changelog lang="de">
-          <change><![CDATA[Themen anzahl auch mit der Moderations-Schlange erhöhen]]></change>
-        </changelog>
-      </entry>
-      <entry>
-        <date>2009-02-18</date>
-        <rev-version>1.0.1</rev-version>
-        <changelog lang="en-gb">
-          <change><![CDATA[updated for 3.0.4]]></change>
-        </changelog>
-        <changelog lang="de">
-          <change><![CDATA[aktualisiert für 3.0.4]]></change>
-        </changelog>
-      </entry>
-      <entry>
-        <date>2008-06-15</date>
-        <rev-version>0.1.1</rev-version>
-        <changelog lang="en-gb">
-          <change><![CDATA[little correction for the search-links]]></change>
-          <change><![CDATA[brought back its own resync]]></change>
-          <change><![CDATA[little mistake in the includes/functions_posting.php]]></change>
-        </changelog>
-        <changelog lang="de">
-          <change><![CDATA[kleine Korrektur für die Such-Links]]></change>
-          <change><![CDATA[eigene Resyncronisier Option ist wieder da]]></change>
-          <change><![CDATA[kleiner Fehler in der includes/functions_posting.php]]></change>
-        </changelog>
-      </entry>
-      <entry>
-        <date>2008-04-24</date>
-        <rev-version>0.1.0</rev-version>
-        <changelog lang="en-gb">
-          <change><![CDATA[up to phpBB 3.0.1]]></change>
-        </changelog>
-        <changelog lang="de">
-          <change><![CDATA[für phpBB 3.0.1]]></change>
-        </changelog>
-      </entry>
-      <entry>
-        <date>2007-07-25</date>
-        <rev-version>0.0.4</rev-version>
-        <changelog lang="en-gb">
-          <change><![CDATA[fixed link on the main-page of the UCP]]></change>
-          <change><![CDATA[fixed a problem in the premodded files]]></change>
-        </changelog>
-        <changelog lang="de">
-          <change><![CDATA[Link auf der Hauptseite des UCP korregiert]]></change>
-          <change><![CDATA[Ein Fehler in den Premodded-Dateien wurde behoben]]></change>
-        </changelog>
-      </entry>
-      <entry>
-        <date>2007-07-22</date>
-        <rev-version>0.0.3</rev-version>
-        <changelog lang="en-gb">
-          <change><![CDATA[fixed a mistake in the premodded files and the manual]]></change>
-        </changelog>
-        <changelog lang="de">
-          <change><![CDATA[ein Fehler in der Anleitung und den premodded Dateien behoben]]></change>
-        </changelog>
-      </entry>
-      <entry>
-        <date>2007-07-21</date>
-        <rev-version>0.0.2</rev-version>
-        <changelog lang="en-gb">
-          <change><![CDATA[fixed "do not count post" handle on resyncronize]]></change>
-          <change><![CDATA[fixed topic delete function in MCP]]></change>
-          <change><![CDATA[fixed delete first post of topic]]></change>
-        </changelog>
-        <changelog lang="de">
-          <change><![CDATA["Zähler nicht erhöhen" repairiert bei der Resyncronisierungs-Option]]></change>
-          <change><![CDATA[fixed Löschfunktion im MCP]]></change>
-          <change><![CDATA[fixed löschen des ersten Beitrags]]></change>
-        </changelog>
-      </entry>
-      <entry>
-        <date>2007-07-17</date>
-        <rev-version>0.0.1</rev-version>
-        <changelog lang="en-gb">
-          <change><![CDATA[first version]]></change>
-        </changelog>
-        <changelog lang="de">
-          <change><![CDATA[erste Version]]></change>
-        </changelog>
-      </entry>
-    </history>
-    <meta name="generator" content="Phpbb.ModTeam.Tools (c#)" />
-  </header>
-  <action-group>
-    <copy>
-      <file from="root/adm/mods/nv_usertopics_version.php" to="adm/mods/nv_usertopics_version.php" />
-    </copy>
-    <sql>ALTER TABLE `phpbb_users` ADD `user_topics` mediumint(8) unsigned DEFAULT "0" NOT NULL;</sql>
-    <open src="adm/style/acp_main.html">
-      <edit>
-        <find><![CDATA[			<form id="action_user_form" method="post" action="{U_ACTION}">
+
+		<author-group>
+			<author>
+				<realname>Joas Schilling</realname>
+				<email>nickvergessen@gmx.de</email>
+				<username>nickvergessen</username>
+				<homepage>http://www.flying-bits.org/</homepage>
+			</author>
+		</author-group>
+
+		<mod-version>1.0.3</mod-version>
+
+		<installation>
+			<level>intermediate</level>
+			<time>1200</time>
+			<target-version>3.0.6</target-version>
+		</installation>
+
+		<link-group>
+			<link type="language" lang="de" href="contrib/de.xml">Anleitung für das deutsche Sprachpaket</link>
+			<link type="language" lang="en" href="contrib/de.xml">Manual for German Language-set</link>
+			<link type="template" lang="de" href="contrib/subsilver2.xml">Anleitung für das Style subsilver2</link>
+			<link type="template" lang="en" href="contrib/subsilver2.xml">Manual for subsilver2 Style</link>
+		</link-group>
+
+		<history>
+			<entry>
+				<date>2009-02-19</date>
+				<rev-version>1.0.2</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Integrate MOD into the other moderating features]]></change>
+					<change><![CDATA[Update to phpbb::3.0.6]]></change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2009-02-19</date>
+				<rev-version>1.0.2</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Increase topic-counter on moderation-queue]]></change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2009-02-18</date>
+				<rev-version>1.0.1</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Update to phpbb::3.0.4]]></change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-06-15</date>
+				<rev-version>0.1.1</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[little correction for the search-links]]></change>
+					<change><![CDATA[brought back its own resync]]></change>
+					<change><![CDATA[little mistake in the includes/functions_posting.php]]></change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2008-04-24</date>
+				<rev-version>0.1.0</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Update to phpbb::3.0.1]]></change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2007-07-25</date>
+				<rev-version>0.0.4</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[fixed link on the main-page of the UCP]]></change>
+					<change><![CDATA[fixed a problem in the premodded files]]></change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2007-07-22</date>
+				<rev-version>0.0.3</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[fixed a mistake in the premodded files and the manual]]></change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2007-07-21</date>
+				<rev-version>0.0.2</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[fixed "do not count post" handle on resyncronize]]></change>
+					<change><![CDATA[fixed topic delete function in MCP]]></change>
+					<change><![CDATA[fixed delete first post of topic]]></change>
+				</changelog>
+			</entry>
+
+			<entry>
+				<date>2007-07-17</date>
+				<rev-version>0.0.1</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[first version]]></change>
+				</changelog>
+			</entry>
+		</history>
+	</header>
+
+	<action-group>
+		<copy>
+			<file from="root/adm/mods/nv_usertopics_version.php" to="adm/mods/nv_usertopics_version.php" />
+			<file from="root/language/en/mods/info_acp_nv_usertopics.php" to="language/en/mods/info_acp_nv_usertopics.php" />
+		</copy>
+
+		<sql>ALTER TABLE `phpbb_users` ADD `user_topics` mediumint(8) unsigned DEFAULT "0" NOT NULL;</sql>
+
+		<open src="adm/style/acp_main.html">
+			<edit>
+				<find><![CDATA[			<form id="action_user_form" method="post" action="{U_ACTION}">
 				<dl>
 					<dt><label for="action_user">{L_RESYNC_POSTCOUNTS}</label><br /><span>{L_RESYNC_POSTCOUNTS_EXPLAIN}</span></dt>
 					<dd><input type="hidden" name="action" value="user" /><input class="button2" type="submit" id="action_user" name="action_user" value="{L_RUN}" /></dd>
 				</dl>
 			</form>]]></find>
-        <action type="after-add"><![CDATA[			<form id="action_topics_form" method="post" action="{U_ACTION}">
+				<action type="after-add"><![CDATA[			<form id="action_topics_form" method="post" action="{U_ACTION}">
 				<dl>
 					<dt><label for="action_topics">{L_RESYNC_TOPICCOUNTS}</label><br /><span>{L_RESYNC_TOPICCOUNTS_EXPLAIN}</span></dt>
 					<dd><input type="hidden" name="action" value="topics" /><input class="button2" type="submit" id="action_topics" name="action_topics" value="{L_RUN}" /></dd>
 				</dl>
 			</form>]]></action>
-      </edit>
-    </open>
-    <open src="memberlist.php">
-      <edit>
-        <find><![CDATA[$percentage = ($config['num_posts']) ? min(100, ($member['user_posts'] / $config['num_posts']) * 100) : 0;]]></find>
-        <action type="after-add"><![CDATA[		$topics_per_day = $member['user_topics'] / $memberdays;
+			</edit>
+		</open>
+
+		<open src="memberlist.php">
+			<edit>
+				<find><![CDATA[$percentage = ($config['num_posts']) ? min(100, ($member['user_posts'] / $config['num_posts']) * 100) : 0;]]></find>
+				<action type="after-add"><![CDATA[		$topics_per_day = $member['user_topics'] / $memberdays;
 		$percentage_topics = ($config['num_topics']) ? min(100, ($member['user_topics'] / $config['num_topics']) * 100) : 0;]]></action>
-      </edit>
-      <edit>
-        <find><![CDATA[			'POSTS_DAY'			=> sprintf($user->lang['POST_DAY'], $posts_per_day),
+			</edit>
+			<edit>
+				<find><![CDATA[			$member['posts_in_queue'] = (int) $db->sql_fetchfield('posts_in_queue');
+			$db->sql_freeresult($result);]]></find>
+				<action type="after-add"><![CDATA[			$sql = 'SELECT COUNT(topic_id) as topics_in_queue
+				FROM ' . TOPICS_TABLE . '
+				WHERE topic_poster = ' . $user_id . '
+					AND topic_approved = 0';
+			$result = $db->sql_query($sql);
+			$member['topics_in_queue'] = (int) $db->sql_fetchfield('topics_in_queue');
+			$db->sql_freeresult($result);
+			$user->add_lang('mods/info_acp_nv_usertopics');]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[$member['posts_in_queue'] = 0;]]></find>
+				<action type="after-add"><![CDATA[$member['topics_in_queue'] = 0;]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA['L_POSTS_IN_QUEUE'	=> $user->lang('NUM_POSTS_IN_QUEUE', $member['posts_in_queue']),]]></find>
+				<action type="after-add"><![CDATA['L_TOPICS_IN_QUEUE'	=> $user->lang('NUM_TOPICS_IN_QUEUE', $member['topics_in_queue']),]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			'POSTS_DAY'			=> sprintf($user->lang['POST_DAY'], $posts_per_day),
 			'POSTS_PCT'			=> sprintf($user->lang['POST_PCT'], $percentage),]]></find>
-        <action type="after-add"><![CDATA[			'TOPICS_DAY'		=> sprintf($user->lang['TOPIC_DAY'], $topics_per_day),
+				<action type="after-add"><![CDATA[			'TOPICS_DAY'		=> sprintf($user->lang['TOPIC_DAY'], $topics_per_day),
 			'TOPICS_PCT'		=> sprintf($user->lang['TOPIC_PCT'], $percentage_topics),]]></action>
-      </edit>
-      <edit>
-        <find><![CDATA[$sort_key_text = array('a' => $user->lang['SORT_USERNAME'], 'b' => $user->lang['SORT_LOCATION'], 'c' => $user->lang['SORT_JOINED'], 'd' => $user->lang['SORT_POST_COUNT'], 'f' => $user->lang['WEBSITE'], 'g' => $user->lang['ICQ'], 'h' => $user->lang['AIM'], 'i' => $user->lang['MSNM'], 'j' => $user->lang['YIM'], 'k' => $user->lang['JABBER']);]]></find>
-        <inline-edit>
-            <inline-find><![CDATA[, 'k' => $user->lang['JABBER']]]></inline-find>
-            <inline-action type="after-add"><![CDATA[, 'o' => $user->lang['TOPICS']]]></inline-action>
-        </inline-edit>
-      </edit>
-      <edit>
-        <find><![CDATA[$sort_key_sql = array('a' => 'u.username_clean', 'b' => 'u.user_from', 'c' => 'u.user_regdate', 'd' => 'u.user_posts', 'f' => 'u.user_website', 'g' => 'u.user_icq', 'h' => 'u.user_aim', 'i' => 'u.user_msnm', 'j' => 'u.user_yim', 'k' => 'u.user_jabber');]]></find>
-        <inline-edit>
-            <inline-find><![CDATA[, 'k' => 'u.user_jabber']]></inline-find>
-            <inline-action type="after-add"><![CDATA[, 'o' => 'u.user_topics']]></inline-action>
-        </inline-edit>
-      </edit>
-      <edit>
-        <find><![CDATA['U_LIST_CHAR'			=> $sort_url . '&amp;sk=a&amp;sd=' . (($sort_key == 'l' && $sort_dir == 'a') ? 'd' : 'a'),]]></find>
-        <action type="after-add"><![CDATA['U_SORT_TOPICS'			=> $sort_url . '&amp;sk=o&amp;sd=' . (($sort_key == 'o' && $sort_dir == 'a') ? 'd' : 'a'),]]></action>
-      </edit>
-      <edit>
-        <find><![CDATA['POSTS'			=> ($data['user_posts']) ? $data['user_posts'] : 0,]]></find>
-        <action type="after-add"><![CDATA[		'TOPICS'		=> ($data['user_topics']) ? $data['user_topics'] : 0,]]></action>
-      </edit>
-      <edit>
-        <find><![CDATA['U_SEARCH_USER'	=> ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.$phpEx", "author_id=$user_id&amp;sr=posts") : '',]]></find>
-        <action type="after-add"><![CDATA['U_SEARCH_USER_TOPICS'	=> ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.$phpEx", "author_id=$user_id&amp;sr=topics&amp;sf=firstpost") : '',]]></action>
-      </edit>
-    </open>
-    <open src="viewtopic.php">
-      <edit>
-        <find><![CDATA[	if (!isset($user_cache[$poster_id]))
+			</edit>
+			<edit>
+				<find><![CDATA['POSTS_IN_QUEUE'=> $member['posts_in_queue'],]]></find>
+				<action type="after-add"><![CDATA['TOPICS_IN_QUEUE'=> $member['topics_in_queue'],]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[$sort_key_text = array('a' => $user->lang['SORT_USERNAME'], 'b' => $user->lang['SORT_LOCATION'], 'c' => $user->lang['SORT_JOINED'], 'd' => $user->lang['SORT_POST_COUNT'], 'f' => $user->lang['WEBSITE'], 'g' => $user->lang['ICQ'], 'h' => $user->lang['AIM'], 'i' => $user->lang['MSNM'], 'j' => $user->lang['YIM'], 'k' => $user->lang['JABBER']);]]></find>
+				<inline-edit>
+						<inline-find><![CDATA[, 'k' => $user->lang['JABBER']]]></inline-find>
+						<inline-action type="after-add"><![CDATA[, 'o' => $user->lang['TOPICS']]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[$sort_key_sql = array('a' => 'u.username_clean', 'b' => 'u.user_from', 'c' => 'u.user_regdate', 'd' => 'u.user_posts', 'f' => 'u.user_website', 'g' => 'u.user_icq', 'h' => 'u.user_aim', 'i' => 'u.user_msnm', 'j' => 'u.user_yim', 'k' => 'u.user_jabber');]]></find>
+				<inline-edit>
+						<inline-find><![CDATA[, 'k' => 'u.user_jabber']]></inline-find>
+						<inline-action type="after-add"><![CDATA[, 'o' => 'u.user_topics']]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA['U_LIST_CHAR'			=> $sort_url . '&amp;sk=a&amp;sd=' . (($sort_key == 'l' && $sort_dir == 'a') ? 'd' : 'a'),]]></find>
+				<action type="after-add"><![CDATA['U_SORT_TOPICS'			=> $sort_url . '&amp;sk=o&amp;sd=' . (($sort_key == 'o' && $sort_dir == 'a') ? 'd' : 'a'),]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA['POSTS'			=> ($data['user_posts']) ? $data['user_posts'] : 0,]]></find>
+				<action type="after-add"><![CDATA[		'TOPICS'		=> ($data['user_topics']) ? $data['user_topics'] : 0,]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA['U_SEARCH_USER'	=> ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.$phpEx", "author_id=$user_id&amp;sr=posts") : '',]]></find>
+				<action type="after-add"><![CDATA['U_SEARCH_USER_TOPICS'	=> ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.$phpEx", "author_id=$user_id&amp;sr=topics&amp;sf=firstpost") : '',]]></action>
+			</edit>
+		</open>
+
+		<open src="viewtopic.php">
+			<edit>
+				<find><![CDATA[	if (!isset($user_cache[$poster_id]))
 	{
 		if ($poster_id == ANONYMOUS)
 		{
 			$user_cache[$poster_id] = array(
 				'joined'		=> '',
 				'posts'			=> '',]]></find>
-        <action type="after-add"><![CDATA['topics'		=> '',]]></action>
-      </edit>
-      <edit>
-        <find><![CDATA[			$user_cache[$poster_id] = array(
+				<action type="after-add"><![CDATA['topics'		=> '',]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[			$user_cache[$poster_id] = array(
 				'joined'		=> $user->format_date($row['user_regdate']),
 				'posts'			=> $row['user_posts'],]]></find>
-        <action type="after-add"><![CDATA['topics'		=> $row['user_topics'],]]></action>
-      </edit>
-      <edit>
-        <find><![CDATA[		'POSTER_JOINED'		=> $user_cache[$poster_id]['joined'],
+				<action type="after-add"><![CDATA['topics'		=> $row['user_topics'],]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[		'POSTER_JOINED'		=> $user_cache[$poster_id]['joined'],
 		'POSTER_POSTS'		=> $user_cache[$poster_id]['posts'],]]></find>
-        <action type="after-add"><![CDATA['POSTER_TOPICS'		=> $user_cache[$poster_id]['topics'],]]></action>
-      </edit>
-    </open>
-    <open src="includes/functions_admin.php">
-      <edit>
-        <find><![CDATA[	$sql = 'UPDATE ' . POSTS_TABLE . '
+				<action type="after-add"><![CDATA['POSTER_TOPICS'		=> $user_cache[$poster_id]['topics'],]]></action>
+			</edit>
+		</open>
+
+		<open src="includes/functions_admin.php">
+			<edit>
+				<find><![CDATA[	$sql = 'UPDATE ' . POSTS_TABLE . '
 		SET forum_id = ' . $forum_row['forum_id'] . ", topic_id = $topic_id
 		WHERE " . $db->sql_in_set('post_id', $post_ids);
 	$db->sql_query($sql);]]></find>
-        <action type="before-add"><![CDATA[	$sql = 'SELECT p.poster_id
+				<action type="before-add"><![CDATA[	$sql = 'SELECT p.poster_id
 		FROM ' . POSTS_TABLE . ' p
 		LEFT JOIN ' . TOPICS_TABLE . ' t
 			ON (t.topic_first_post_id = p.post_id)
@@ -229,11 +254,11 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 		$db->sql_return_on_error(false);
 	}
 	$db->sql_freeresult($result);]]></action>
-      </edit>
-      <edit>
-        <find><![CDATA[	// Update posted information
+			</edit>
+			<edit>
+				<find><![CDATA[	// Update posted information
 	update_posted_info($topic_ids);]]></find>
-        <action type="after-add"><![CDATA[
+				<action type="after-add"><![CDATA[
 	$sql = 'SELECT p.poster_id
 		FROM ' . POSTS_TABLE . ' p
 		LEFT JOIN ' . TOPICS_TABLE . ' t
@@ -246,14 +271,15 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 		$db->sql_query('UPDATE ' . USERS_TABLE . ' SET user_topics = user_topics + 1 WHERE user_id = ' . (int) $row['poster_id']);
 	}
 	$db->sql_freeresult($result);]]></action>
-      </edit>
-    </open>
-    <open src="includes/functions_posting.php">
-      <edit>
-        <find><![CDATA[	if (!delete_posts('post_id', array($post_id), false, false))
+			</edit>
+		</open>
+
+		<open src="includes/functions_posting.php">
+			<edit>
+				<find><![CDATA[	if (!delete_posts('post_id', array($post_id), false, false))
 	{
 		// Try to delete topic, we may had an previous error causing inconsistency]]></find>
-        <action type="before-add"><![CDATA[	if (($post_mode == 'delete_topic') || ($post_mode == 'delete_first_post'))
+				<action type="before-add"><![CDATA[	if (($post_mode == 'delete_topic') || ($post_mode == 'delete_first_post'))
 	{
 		if ($data['post_approved'] && $data['post_postcount'])
 		{
@@ -262,45 +288,46 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 			$db->sql_return_on_error(false);
 		}
 	}]]></action>
-      </edit>
-      <edit>
-        <find><![CDATA[			// Decrementing topic_replies here is fine because this case only happens if there is more than one post within the topic - basically removing one "reply"
+			</edit>
+			<edit>
+				<find><![CDATA[			// Decrementing topic_replies here is fine because this case only happens if there is more than one post within the topic - basically removing one "reply"
 			$sql_data[TOPICS_TABLE] .= ', topic_replies_real = topic_replies_real - 1' . (($data['post_approved']) ? ', topic_replies = topic_replies - 1' : '');]]></find>
-        <action type="before-add"><![CDATA[			if ($row['post_approved'] && $row['post_postcount'])
+				<action type="before-add"><![CDATA[			if ($row['post_approved'] && $row['post_postcount'])
 			{
 				$sub_sql = 'UPDATE ' . USERS_TABLE . ' SET user_topics = user_topics + 1 WHERE user_id = ' . (int) $row['poster_id'];
 				$db->sql_query($sub_sql);
 			}]]></action>
-      </edit>
-      <edit>
-        <find><![CDATA[			}
+			</edit>
+			<edit>
+				<find><![CDATA[			}
 
 			$sql_data[USERS_TABLE]['stat'][] = "user_lastpost_time = $current_time" . (($auth->acl_get('f_postcount', $data['forum_id']) && $post_approval) ? ', user_posts = user_posts + 1' : '');]]></find>
-        <inline-edit>
-            <inline-find><![CDATA[', user_posts = user_posts + 1]]></inline-find>
-            <inline-action type="after-add"><![CDATA[ , user_topics = user_topics + 1]]></inline-action>
-        </inline-edit>
-      </edit>
-    </open>
-    <open src="includes/acp/acp_main.php">
-      <edit>
-        <find><![CDATA[					case 'user':
+				<inline-edit>
+						<inline-find><![CDATA[', user_posts = user_posts + 1]]></inline-find>
+						<inline-action type="after-add"><![CDATA[ , user_topics = user_topics + 1]]></inline-action>
+				</inline-edit>
+			</edit>
+		</open>
+
+		<open src="includes/acp/acp_main.php">
+			<edit>
+				<find><![CDATA[					case 'user':
 						$confirm = true;
 						$confirm_lang = 'RESYNC_POSTCOUNTS_CONFIRM';
 					break;]]></find>
-        <action type="after-add"><![CDATA[					case 'topics':
+				<action type="after-add"><![CDATA[					case 'topics':
 						$confirm = true;
 						$confirm_lang = 'RESYNC_TOPICCOUNTS_CONFIRM';
 					break;]]></action>
-      </edit>
-      <edit>
-        <find><![CDATA[							$start += $step;
+			</edit>
+			<edit>
+				<find><![CDATA[							$start += $step;
 						}
 
 						add_log('admin', 'LOG_RESYNC_POSTCOUNTS');
 
 					break;]]></find>
-        <action type="after-add"><![CDATA[					case 'topics':
+				<action type="after-add"><![CDATA[					case 'topics':
 						if (!$auth->acl_get('a_board'))
 						{
 							trigger_error($user->lang['NO_AUTH_OPERATION'] . adm_back_link($this->u_action), E_USER_WARNING);
@@ -308,8 +335,8 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 
 						$sql = 'SELECT COUNT(p.post_id) AS num_topics, u.user_id
 							FROM ' . USERS_TABLE . ' u
-							LEFT JOIN  ' . TOPICS_TABLE . ' t ON (u.user_id = t.topic_poster)
-							LEFT JOIN  ' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id AND p.post_postcount = 1)
+							LEFT JOIN	' . TOPICS_TABLE . ' t ON (u.user_id = t.topic_poster)
+							LEFT JOIN	' . POSTS_TABLE . ' p ON (p.post_id = t.topic_first_post_id AND p.post_postcount = 1)
 							GROUP BY u.user_id';
 						$result = $db->sql_query($sql);
 
@@ -322,25 +349,26 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 						add_log('admin', 'LOG_RESYNC_TOPICCOUNTS');
 
 					break;]]></action>
-      </edit>
-    </open>
-    <open src="includes/mcp/mcp_queue.php">
-      <edit>
-        <find><![CDATA[			// Topic or Post. ;)
+			</edit>
+		</open>
+
+		<open src="includes/mcp/mcp_queue.php">
+			<edit>
+				<find><![CDATA[			// Topic or Post. ;)
 			if ($post_data['topic_first_post_id'] == $post_id)
 			{]]></find>
-        <action type="after-add"><![CDATA[				// Increase the user_topics field
+				<action type="after-add"><![CDATA[				// Increase the user_topics field
 				if ($post_data['post_postcount'])
 				{
 					$user_topics_sql[$post_data['poster_id']] = (empty($user_topics_sql[$post_data['poster_id']])) ? 1 : $user_topics_sql[$post_data['poster_id']] + 1;
 				}]]></action>
-      </edit>
-      <edit>
-        <find><![CDATA[		}
+			</edit>
+			<edit>
+				<find><![CDATA[		}
 
 		if ($total_topics)
 		{]]></find>
-        <action type="after-add"><![CDATA[			if (sizeof($user_topics_sql))
+				<action type="after-add"><![CDATA[			if (sizeof($user_topics_sql))
 			{
 				// Try to minimize the query count by merging users with the same topic count additions
 				$user_topics_update = array();
@@ -358,114 +386,97 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 					$db->sql_query($sql);
 				}
 			}]]></action>
-      </edit>
-    </open>
-    <open src="includes/ucp/ucp_main.php">
-      <edit>
-        <find><![CDATA[				$posts_per_day = $user->data['user_posts'] / $memberdays;
+			</edit>
+		</open>
+
+		<open src="includes/ucp/ucp_main.php">
+			<edit>
+				<find><![CDATA[				$posts_per_day = $user->data['user_posts'] / $memberdays;
 				$percentage = ($config['num_posts']) ? min(100, ($user->data['user_posts'] / $config['num_posts']) * 100) : 0;]]></find>
-        <action type="after-add"><![CDATA[				$topics_per_day = $user->data['user_topics'] / $memberdays;
+				<action type="after-add"><![CDATA[				$topics_per_day = $user->data['user_topics'] / $memberdays;
 				$percentage_topics = ($config['num_topics']) ? min(100, ($user->data['user_topics'] / $config['num_topics']) * 100) : 0;]]></action>
-      </edit>
-      <edit>
-        <find><![CDATA[					'POSTS_DAY'			=> sprintf($user->lang['POST_DAY'], $posts_per_day),
+			</edit>
+			<edit>
+				<find><![CDATA[					'POSTS_DAY'			=> sprintf($user->lang['POST_DAY'], $posts_per_day),
 					'POSTS_PCT'			=> sprintf($user->lang['POST_PCT'], $percentage),]]></find>
-        <action type="after-add"><![CDATA[					'TOPICS'				=> ($user->data['user_topics']) ? $user->data['user_topics'] : 0,
+				<action type="after-add"><![CDATA[					'TOPICS'				=> ($user->data['user_topics']) ? $user->data['user_topics'] : 0,
 					'TOPICS_DAY'			=> sprintf($user->lang['TOPIC_DAY'], $topics_per_day),
 					'TOPICS_PCT'			=> sprintf($user->lang['TOPIC_PCT'], $percentage_topics),
 					'U_SEARCH_USER_TOPICS'	=> ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.$phpEx", 'author_id=' . $user->data['user_id'] . '&amp;sr=topics&amp;sf=firstpost') : '',]]></action>
-      </edit>
-    </open>
-    <open src="includes/ucp/ucp_pm_viewmessage.php">
-      <edit>
-        <find><![CDATA['AUTHOR_POSTS'		=> (int) $user_info['user_posts'],]]></find>
-        <action type="after-add"><![CDATA['AUTHOR_TOPICS'		=> (!empty($user_info['user_topics'])) ? $user_info['user_topics'] : '',]]></action>
-      </edit>
-    </open>
-    <open src="language/en/common.php">
-      <edit>
-        <find><![CDATA['default_dateformat'	=> 'D M d, Y g:i a', // Mon Jan 01, 2007 1:37 pm]]></find>
-        <action type="after-add"><![CDATA[	'TOTAL_TOPICS'				=> 'Total topics',
-	'TOPIC_DAY'					=> '%.2f topics per day',
-	'TOPIC_PCT'					=> '%.2f%% of all topics',]]></action>
-      </edit>
-    </open>
-    <open src="language/en/memberlist.php">
-      <edit>
-        <find><![CDATA['SEARCH_USER_POSTS'		=> 'Search user’s posts',]]></find>
-        <action type="after-add"><![CDATA['SEARCH_USER_TOPICS'	=> 'Search user’s topics',]]></action>
-      </edit>
-    </open>
-    <open src="language/en/ucp.php">
-      <edit>
-        <find><![CDATA['SEARCH_YOUR_POSTS'			=> 'Show your posts',]]></find>
-        <action type="after-add"><![CDATA['SEARCH_YOUR_TOPICS'		=> 'Show your topics',]]></action>
-      </edit>
-    </open>
-    <open src="language/en/acp/common.php">
-      <edit>
-        <find><![CDATA[	'RESYNC_STATS_CONFIRM'			=> 'Are you sure you wish to resynchronise statistics?',
-	'RESYNC_STATS_EXPLAIN'			=> 'Recalculates the total number of posts, topics, users and files.',]]></find>
-        <action type="after-add"><![CDATA[	'RESYNC_TOPICCOUNTS'			=> 'Resynchronise topic counts',
-	'RESYNC_TOPICCOUNTS_EXPLAIN'	=> 'Only existing topics will be taken into consideration. Pruned topics will not be counted.',
-	'RESYNC_TOPICCOUNTS_CONFIRM'	=> 'Are you sure you wish to resynchronise topic counts?',]]></action>
-      </edit>
-      <edit>
-        <find><![CDATA['LOG_RESYNC_STATS'			=> '<strong>Post, topic and user statistics resynchronised</strong>',]]></find>
-        <action type="after-add"><![CDATA['LOG_RESYNC_TOPICCOUNTS'	=> '<strong>User topic counts resynchronised</strong>',]]></action>
-      </edit>
-    </open>
-    <open src="styles/prosilver/template/memberlist_body.html">
-      <edit>
-        <find><![CDATA[<th class="posts"><a href="{U_SORT_POSTS}#memberlist">{L_POSTS}</a></th>]]></find>
-        <inline-edit>
-            <inline-find><![CDATA[{L_POSTS}</a>]]></inline-find>
-            <inline-action type="after-add"><![CDATA[{L_COMMA_SEPARATOR}<a href="{U_SORT_TOPICS}#memberlist">{L_TOPICS}</a>]]></inline-action>
-        </inline-edit>
-      </edit>
-      <edit>
-        <find><![CDATA[<td class="posts"><!-- IF memberrow.POSTS --><a href="{memberrow.U_SEARCH_USER}" title="{L_SEARCH_USER_POSTS}">{memberrow.POSTS}</a><!-- ELSE -->{memberrow.POSTS}<!-- ENDIF --></td>]]></find>
-        <action type="replace-with"><![CDATA[<td class="posts"><!-- IF memberrow.POSTS or memberrow.TOPICS --><!-- IF memberrow.POSTS --><div>{L_POSTS}: <a href="{memberrow.U_SEARCH_USER}" title="{L_SEARCH_USER_POSTS}">{memberrow.POSTS}</a></div><!-- ENDIF --><!-- IF memberrow.TOPICS --><div>{L_TOPICS}: <a href="{memberrow.U_SEARCH_USER_TOPICS}" title="{L_SEARCH_USER_TOPICS}">{memberrow.TOPICS}</a></div><!-- ENDIF --><!-- ELSE -->&nbsp;<!-- ENDIF --></td>]]></action>
-      </edit>
-    </open>
-    <open src="styles/prosilver/template/memberlist_view.html">
-      <edit>
-        <find><![CDATA[			<dt>{L_TOTAL_POSTS}:</dt>
+			</edit>
+		</open>
+
+		<open src="includes/ucp/ucp_pm_viewmessage.php">
+			<edit>
+				<find><![CDATA['AUTHOR_POSTS'		=> (int) $user_info['user_posts'],]]></find>
+				<action type="after-add"><![CDATA['AUTHOR_TOPICS'		=> (int) $user_info['user_topics'],]]></action>
+			</edit>
+		</open>
+
+		<open src="styles/prosilver/template/memberlist_body.html">
+			<edit>
+				<find><![CDATA[<th class="posts"><a href="{U_SORT_POSTS}#memberlist">{L_POSTS}</a></th>]]></find>
+				<inline-edit>
+						<inline-find><![CDATA[{L_POSTS}</a>]]></inline-find>
+						<inline-action type="after-add"><![CDATA[{L_COMMA_SEPARATOR}<a href="{U_SORT_TOPICS}#memberlist">{L_TOPICS}</a>]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[<th class="posts"><a href="{U_SORT_POSTS}#memberlist">{L_POSTS}</a></th>]]></find>
+				<inline-edit>
+						<inline-find><![CDATA[{L_POSTS}</a>]]></inline-find>
+						<inline-action type="after-add"><![CDATA[{L_COMMA_SEPARATOR}<a href="{U_SORT_TOPICS}#memberlist">{L_TOPICS}</a>]]></inline-action>
+				</inline-edit>
+			</edit>
+			<edit>
+				<find><![CDATA[<td class="posts"><!-- IF memberrow.POSTS and S_DISPLAY_SEARCH --><a href="{memberrow.U_SEARCH_USER}" title="{L_SEARCH_USER_POSTS}">{memberrow.POSTS}</a><!-- ELSE -->{memberrow.POSTS}<!-- ENDIF --></td>]]></find>
+				<action type="replace-with"><![CDATA[<td class="posts">{L_POSTS}: <!-- IF memberrow.POSTS and S_DISPLAY_SEARCH --><a href="{memberrow.U_SEARCH_USER}" title="{L_SEARCH_USER_POSTS}">{memberrow.POSTS}</a><!-- ELSE -->{memberrow.POSTS}<!-- ENDIF --><br />{L_TOPICS}: <!-- IF memberrow.TOPICS and S_DISPLAY_SEARCH --><a href="{memberrow.U_SEARCH_USER_TOPICS}" title="{L_SEARCH_USER_TOPICS}">{memberrow.TOPICS}</a><!-- ELSE -->{memberrow.TOPICS}<!-- ENDIF --></td>]]></action>
+			</edit>
+		</open>
+
+		<open src="styles/prosilver/template/memberlist_view.html">
+			<edit>
+				<find><![CDATA[			<dt>{L_TOTAL_POSTS}:</dt>
 				<dd>{POSTS} <!-- IF S_DISPLAY_SEARCH -->| <strong><a href="{U_SEARCH_USER}">{L_SEARCH_USER_POSTS}</a></strong><!-- ENDIF -->
 					<!-- IF POSTS_PCT --><br />({POSTS_PCT} / {POSTS_DAY})<!-- ENDIF -->
 					<!-- IF POSTS_IN_QUEUE and U_MCP_QUEUE --><br />(<a href="{U_MCP_QUEUE}">{L_POSTS_IN_QUEUE}</a>)<!-- ELSEIF POSTS_IN_QUEUE --><br />({L_POSTS_IN_QUEUE})<!-- ENDIF -->
 				</dd>]]></find>
-        <action type="after-add"><![CDATA[			<dt>{L_TOTAL_TOPICS}:</dt>
-				<dd>{TOPICS}<!-- IF S_DISPLAY_SEARCH --> | <strong><a href="{U_SEARCH_USER_TOPICS}">{L_SEARCH_USER_TOPICS}</a></strong><!-- ENDIF -->
-					<!-- IF POSTS_PCT --><br />({TOPICS_PCT} / {TOPICS_DAY})<!-- ENDIF -->
+				<action type="after-add"><![CDATA[			<dt>{L_TOTAL_TOPICS}:</dt>
+				<dd>{TOPICS} | <strong><a href="{U_SEARCH_USER_TOPICS}">{L_SEARCH_USER_TOPICS}</a></strong>
+					<!-- IF TOPICS_PCT --><br />({TOPICS_PCT} / {TOPICS_DAY})<!-- ENDIF -->
+					<!-- IF TOPICS_IN_QUEUE and U_MCP_QUEUE --><br />(<a href="{U_MCP_QUEUE}">{L_TOPICS_IN_QUEUE}</a>)<!-- ELSEIF TOPICS_IN_QUEUE --><br />({L_TOPICS_IN_QUEUE})<!-- ENDIF -->
 				</dd>]]></action>
-      </edit>
-    </open>
-    <open src="styles/prosilver/template/ucp_main_front.html">
-      <edit>
-        <find><![CDATA[<dt>{L_TOTAL_POSTS}:</dt> <dd><!-- IF POSTS_PCT -->{POSTS}<!-- IF S_DISPLAY_SEARCH --> | <strong><a href="{U_SEARCH_USER}">{L_SEARCH_YOUR_POSTS}</a></strong><!-- ENDIF --><br />({POSTS_DAY} / {POSTS_PCT})<!-- ELSE -->{POSTS}<!-- ENDIF --></dd>]]></find>
-        <action type="after-add"><![CDATA[<dt>{L_TOTAL_TOPICS}:</dt> <dd><!-- IF TOPICS_PCT -->{TOPICS}<!-- IF S_DISPLAY_SEARCH --> | <strong><a href="{U_SEARCH_USER_TOPICS}">{L_SEARCH_YOUR_TOPICS}</a></strong><!-- ENDIF --><br />({TOPICS_DAY} / {TOPICS_PCT})<!-- ELSE -->{TOPICS}<!-- ENDIF --></dd>]]></action>
-      </edit>
-    </open>
-    <open src="styles/prosilver/template/ucp_pm_viewmessage.html">
-      <edit>
-        <find><![CDATA[<dd><strong>{L_POSTS}:</strong> {AUTHOR_POSTS}</dd>]]></find>
-        <action type="after-add"><![CDATA[<!-- IF AUTHOR_TOPICS --><dd><strong>{L_TOPICS}:</strong> {AUTHOR_TOPICS}</dd><!-- ENDIF -->]]></action>
-      </edit>
-    </open>
-    <open src="styles/prosilver/template/viewtopic_body.html">
-      <edit>
-        <find><![CDATA[<!-- IF postrow.POSTER_POSTS != '' --><dd><strong>{L_POSTS}:</strong> {postrow.POSTER_POSTS}</dd><!-- ENDIF -->]]></find>
-        <action type="after-add"><![CDATA[<!-- IF postrow.POSTER_TOPICS --><dd><strong>{L_TOPICS}:</strong> {postrow.POSTER_TOPICS}</dd><!-- ENDIF -->]]></action>
-      </edit>
-    </open>
-    <diy-instructions lang="en-gb"><![CDATA[Don't forget to clear the cache!
+			</edit>
+		</open>
+
+		<open src="styles/prosilver/template/ucp_main_front.html">
+			<edit>
+				<find><![CDATA[<dt>{L_TOTAL_POSTS}:</dt> <dd><!-- IF POSTS_PCT -->{POSTS}<!-- IF S_DISPLAY_SEARCH --> | <strong><a href="{U_SEARCH_USER}">{L_SEARCH_YOUR_POSTS}</a></strong><!-- ENDIF --><br />({POSTS_DAY} / {POSTS_PCT})<!-- ELSE -->{POSTS}<!-- ENDIF --></dd>]]></find>
+				<action type="after-add"><![CDATA[<dt>{L_TOTAL_TOPICS}:</dt> <dd><!-- IF TOPICS_PCT -->{TOPICS}<!-- IF S_DISPLAY_SEARCH --> | <strong><a href="{U_SEARCH_USER_TOPICS}">{L_SEARCH_YOUR_TOPICS}</a></strong><!-- ENDIF --><br />({TOPICS_DAY} / {TOPICS_PCT})<!-- ELSE -->{TOPICS}<!-- ENDIF --></dd>]]></action>
+			</edit>
+		</open>
+
+		<open src="styles/prosilver/template/ucp_pm_viewmessage.html">
+			<edit>
+				<find><![CDATA[<dd><strong>{L_POSTS}:</strong> {AUTHOR_POSTS}</dd>]]></find>
+				<action type="after-add"><![CDATA[<dd><strong>{L_TOPICS}:</strong> {AUTHOR_TOPICS}</dd>]]></action>
+			</edit>
+		</open>
+
+		<open src="styles/prosilver/template/viewtopic_body.html">
+			<edit>
+				<find><![CDATA[<!-- IF postrow.POSTER_POSTS != '' --><dd><strong>{L_POSTS}:</strong> {postrow.POSTER_POSTS}</dd><!-- ENDIF -->]]></find>
+				<action type="after-add"><![CDATA[<!-- IF postrow.POSTER_TOPICS --><dd><strong>{L_TOPICS}:</strong> {postrow.POSTER_TOPICS}</dd><!-- ENDIF -->]]></action>
+			</edit>
+		</open>
+
+		<diy-instructions lang="en"><![CDATA[Don't forget to clear the cache!
 After the install, you have to resynchronise it. Therefor go to the ACP and do it (on the first page)
 If you want me to add your language file to the download, just leave me a pm:
 http://www.phpbb.com/community/ucp.php?i=pm&amp;mode=compose&amp;u=315319]]></diy-instructions>
-    <diy-instructions lang="de"><![CDATA[Nicht vergessen den Cache zuleeren!
+		<diy-instructions lang="de"><![CDATA[Nicht vergessen den Cache zuleeren!
 Nach dem Installieren muss der MOD resyncronisiert werden, Dafür ins ACP gehen und ausführen (auf der ersten Seite zufinden)
 Wenn ihr den MOD in eine weitere Sprache übersetzt habt, schickt mir doch eine pm:
 http://www.phpbb.com/community/ucp.php?i=pm&amp;mode=compose&amp;u=315319]]></diy-instructions>
-  </action-group>
+	</action-group>
 </mod>

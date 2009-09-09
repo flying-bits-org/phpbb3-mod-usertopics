@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet type="text/xsl" href="modx.prosilver.en.xsl"?>
+<!--For security purposes, please check: http://www.phpbb.com/mods/ for the latest version of this MOD. Although MODs are checked before being allowed in the MODs Database there is no guarantee that there are no security problems within the MOD. No support will be given for MODs not found within the MODs Database which can be found at http://www.phpbb.com/mods/-->
+<mod xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.phpbb.com/mods/xml/modx-1.2.2.xsd">
+	<header>
+		<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
+
+		<title lang="en">user topics MOD</title>
+		<title lang="de">user topics MOD</title>
+
+		<description lang="en"><![CDATA[Adds the number of opened user-topics to the number of user-posts on all pages.]]></description>
+		<description lang="de"><![CDATA[Fügt die Anzahl der vom Benutzer eröffneten Themen zu der, der Beiträge in sämtlichen Dateien hinzu.]]></description>
+
+		<author-notes lang="de"><![CDATA[Die MOD untersützt die "MOD Version Check"-MOD von Handymman´:
+http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
+		<author-notes lang="en"><![CDATA[This MOD supports the "MOD Version Check"-MOD by Handymman´:
+http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
+
+		<author-group>
+			<author>
+				<realname>Joas Schilling</realname>
+				<email>nickvergessen@gmx.de</email>
+				<username>nickvergessen</username>
+				<homepage>http://www.flying-bits.org/</homepage>
+			</author>
+		</author-group>
+
+		<mod-version>1.0.3</mod-version>
+
+		<installation>
+			<level>intermediate</level>
+			<time>900</time>
+			<target-version>3.0.6</target-version>
+		</installation>
+	</header>
+
+	<action-group>
+		<open src="memberlist.php">
+			<edit>
+				<comment lang="de"><![CDATA[Es gibt keinen "Ersetze mit"-Code, da der Code gelöscht werden soll.]]></comment>
+				<comment lang="en"><![CDATA[There is no "replace-with"-code as you need to delete the code.]]></comment>
+				<find><![CDATA[		'TOPICS'			=> ($data['user_topics']) ? $data['user_topics'] : 0,
+		'U_SEARCH_USER_TOPICS'	=> ($auth->acl_get('u_search')) ? append_sid("{$phpbb_root_path}search.$phpEx", "author_id=$user_id&amp;sr=topics&amp;sf=firstpost") : '',]]></find>
+				<action type="replace-with"><![CDATA[]]></action>
+			</edit>
+		</open>
+
+		<open src="includes/functions_admin.php">
+			<edit>
+				<find><![CDATA[$sql = 'SELECT topic_id, forum_id, topic_approved, topic_poster, topic_moved_id]]></find>
+				<action type="replace-with"><![CDATA[$sql = 'SELECT topic_id, forum_id, topic_approved, topic_moved_id]]></action>
+			</edit>
+			<edit>
+				<comment lang="de"><![CDATA[Es gibt keinen "Ersetze mit"-Code, da der Code gelöscht werden soll.]]></comment>
+				<comment lang="en"><![CDATA[There is no "replace-with"-code as you need to delete the code.]]></comment>
+				<find><![CDATA[			$sql = 'UPDATE ' . USERS_TABLE . " SET user_topics = user_topics - 1 WHERE user_id = '" . $row['topic_poster'] . "'";
+			$db->sql_query($sql);]]></find>
+				<action type="replace-with"><![CDATA[]]></action>
+			</edit>
+		</open>
+
+		<open src="includes/functions_posting.php">
+			<edit>
+				<comment lang="de"><![CDATA[Es gibt keinen "Ersetze mit"-Code, da der Code gelöscht werden soll.]]></comment>
+				<comment lang="en"><![CDATA[There is no "replace-with"-code as you need to delete the code.]]></comment>
+				<find><![CDATA[$sql_data[USERS_TABLE] = 'user_topics = user_topics' . (($data['post_approved']) ? ' - 1' : '');]]></find>
+				<action type="replace-with"><![CDATA[]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[$sql_data[USERS_TABLE]['stat'][] = "user_lastpost_time = $current_time" . (($auth->acl_get('f_postcount', $data['forum_id']) && $post_approval) ? ', user_posts = user_posts + 1, user_topics = user_topics + 1' : '');]]></find>
+				<action type="replace-with"><![CDATA[$sql_data[USERS_TABLE]['stat'][] = "user_lastpost_time = $current_time" . (($auth->acl_get('f_postcount', $data['forum_id']) && $post_approval) ? ', user_posts = user_posts + 1' : '');]]></action>
+			</edit>
+		</open>
+
+		<open src="includes/ucp/ucp_pm_viewmessage.php">
+			<edit>
+				<comment lang="de"><![CDATA[Es gibt keinen "Ersetze mit"-Code, da der Code gelöscht werden soll.]]></comment>
+				<comment lang="en"><![CDATA[There is no "replace-with"-code as you need to delete the code.]]></comment>
+				<find><![CDATA['AUTHOR_TOPICS'		=> (!empty($user_info['user_topics'])) ? $user_info['user_topics'] : '',]]></find>
+				<action type="replace-with"><![CDATA[]]></action>
+			</edit>
+		</open>
+
+		<open src="language/en/common.php">
+			<edit>
+				<comment lang="de"><![CDATA[Es gibt keinen "Ersetze mit"-Code, da der Code gelöscht werden soll.]]></comment>
+				<comment lang="en"><![CDATA[There is no "replace-with"-code as you need to delete the code.]]></comment>
+				<find><![CDATA[	'TOTAL_TOPICS'				=> 'Total topics',
+	'TOPIC_DAY'					=> '%.2f topics per day',
+	'TOPIC_PCT'					=> '%.2f%% of all topics',]]></find>
+				<action type="replace-with"><![CDATA[]]></action>
+			</edit>
+		</open>
+
+		<open src="language/en/memberlist.php">
+			<edit>
+				<comment lang="de"><![CDATA[Es gibt keinen "Ersetze mit"-Code, da der Code gelöscht werden soll.]]></comment>
+				<comment lang="en"><![CDATA[There is no "replace-with"-code as you need to delete the code.]]></comment>
+				<find><![CDATA['SEARCH_USER_TOPICS'	=> 'Search user’s topics',]]></find>
+				<action type="replace-with"><![CDATA[]]></action>
+			</edit>
+		</open>
+
+		<open src="language/en/ucp.php">
+			<edit>
+				<comment lang="de"><![CDATA[Es gibt keinen "Ersetze mit"-Code, da der Code gelöscht werden soll.]]></comment>
+				<comment lang="en"><![CDATA[There is no "replace-with"-code as you need to delete the code.]]></comment>
+				<find><![CDATA['SEARCH_YOUR_TOPICS'		=> 'Show your topics',]]></find>
+				<action type="replace-with"><![CDATA[]]></action>
+			</edit>
+		</open>
+
+		<open src="language/en/acp/common.php">
+			<edit>
+				<comment lang="de"><![CDATA[Es gibt keinen "Ersetze mit"-Code, da der Code gelöscht werden soll.]]></comment>
+				<comment lang="en"><![CDATA[There is no "replace-with"-code as you need to delete the code.]]></comment>
+				<find><![CDATA[	'RESYNC_TOPICCOUNTS'			=> 'Resynchronise topic counts',
+	'RESYNC_TOPICCOUNTS_EXPLAIN'	=> 'Only existing topics will be taken into consideration. Pruned topics will not be counted.',
+	'RESYNC_TOPICCOUNTS_CONFIRM'	=> 'Are you sure you wish to resynchronise topic counts?',]]></find>
+				<action type="replace-with"><![CDATA[]]></action>
+			</edit>
+			<edit>
+				<comment lang="de"><![CDATA[Es gibt keinen "Ersetze mit"-Code, da der Code gelöscht werden soll.]]></comment>
+				<comment lang="en"><![CDATA[There is no "replace-with"-code as you need to delete the code.]]></comment>
+				<find><![CDATA['LOG_RESYNC_TOPICCOUNTS'	=> '<strong>User topic counts resynchronised</strong>',]]></find>
+				<action type="replace-with"><![CDATA[]]></action>
+			</edit>
+		</open>
+
+		<open src="styles/prosilver/template/ucp_main_front.html">
+			<edit>
+				<comment lang="de"><![CDATA[Es gibt keinen "Ersetze mit"-Code, da der Code gelöscht werden soll.]]></comment>
+				<comment lang="en"><![CDATA[There is no "replace-with"-code as you need to delete the code.]]></comment>
+				<find><![CDATA[<dt>{L_TOTAL_TOPICS}:</dt> <dd><!-- IF TOPICS_PCT -->{TOPICS} | <strong><a href="{U_SEARCH_USER_TOPICS}">{L_SEARCH_YOUR_TOPICS}</a></strong><br />({TOPICS_DAY} / {TOPICS_PCT})<!-- ELSE -->{TOPICS}<!-- ENDIF --></dd>]]></find>
+				<action type="replace-with"><![CDATA[]]></action>
+			</edit>
+		</open>
+
+		<open src="styles/prosilver/template/ucp_pm_viewmessage.html">
+			<edit>
+				<comment lang="de"><![CDATA[Es gibt keinen "Ersetze mit"-Code, da der Code gelöscht werden soll.]]></comment>
+				<comment lang="en"><![CDATA[There is no "replace-with"-code as you need to delete the code.]]></comment>
+				<find><![CDATA[<!-- IF AUTHOR_TOPICS --><dd><strong>{L_TOPICS}:</strong> {AUTHOR_TOPICS}</dd><!-- ENDIF -->]]></find>
+				<action type="replace-with"><![CDATA[]]></action>
+			</edit>
+		</open>
+	</action-group>
+</mod>
