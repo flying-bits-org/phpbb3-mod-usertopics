@@ -150,6 +150,13 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 			</edit>
 		</open>
 
+		<open src="includes/ucp/ucp_main.php">
+			<edit>
+				<find><![CDATA[$percentage_topics = ($config['num_topics']) ? min(100, ($user->data['user_topics'] / $config['num_topics']) * 100) : 0;]]></find>
+				<action type="after-add"><![CDATA[$user->add_lang('mods/info_acp_nv_usertopics');]]></action>
+			</edit>
+		</open>
+
 		<open src="includes/ucp/ucp_pm_viewmessage.php">
 			<edit>
 				<find><![CDATA['AUTHOR_POSTS'		=> (int) $user_info['user_posts'],]]></find>

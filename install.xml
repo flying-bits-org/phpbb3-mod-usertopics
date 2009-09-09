@@ -394,7 +394,8 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 				<find><![CDATA[				$posts_per_day = $user->data['user_posts'] / $memberdays;
 				$percentage = ($config['num_posts']) ? min(100, ($user->data['user_posts'] / $config['num_posts']) * 100) : 0;]]></find>
 				<action type="after-add"><![CDATA[				$topics_per_day = $user->data['user_topics'] / $memberdays;
-				$percentage_topics = ($config['num_topics']) ? min(100, ($user->data['user_topics'] / $config['num_topics']) * 100) : 0;]]></action>
+				$percentage_topics = ($config['num_topics']) ? min(100, ($user->data['user_topics'] / $config['num_topics']) * 100) : 0;
+				$user->add_lang('mods/info_acp_nv_usertopics');]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[					'POSTS_DAY'			=> sprintf($user->lang['POST_DAY'], $posts_per_day),
