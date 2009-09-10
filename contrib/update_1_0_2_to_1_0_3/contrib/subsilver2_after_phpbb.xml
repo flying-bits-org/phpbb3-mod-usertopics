@@ -71,7 +71,7 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 		</tr>]]></find>
 				<action type="after-add"><![CDATA[		<tr>
 			<td align="{S_CONTENT_FLOW_END}" valign="top" nowrap="nowrap"><b class="genmed">{L_TOTAL_TOPICS}: </b></td>
-			<td><!-- IF TOPICS_PCT --><b class="gen">{TOPICS}</b><br /><span class="genmed">[{TOPICS_PCT} / {TOPICS_DAY}]<!-- IF S_DISPLAY_SEARCH --><br /><a href="{U_SEARCH_SELF}">{L_SEARCH_YOUR_TOPICS}</a><!-- ENDIF --></span><!-- ELSE --><b class="gen">{TOPICS}<b><!-- ENDIF --></td>
+			<td><!-- IF TOPICS_PCT --><b class="gen">{TOPICS}</b><br /><span class="genmed">[{TOPICS_PCT} / {TOPICS_DAY}]<!-- IF S_DISPLAY_SEARCH --><br /><a href="{U_SEARCH_SELF_TOPICS}">{L_SEARCH_YOUR_TOPICS}</a><!-- ENDIF --></span><!-- ELSE --><b class="gen">{TOPICS}<b><!-- ENDIF --></td>
 		</tr>]]></action>
 			</edit>
 		</open>
