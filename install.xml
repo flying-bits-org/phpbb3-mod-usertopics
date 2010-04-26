@@ -5,11 +5,11 @@
 	<header>
 		<license>http://opensource.org/licenses/gpl-license.php GNU General Public License v2</license>
 
-		<title lang="en">NV usertopics</title>
 		<title lang="de">NV usertopics</title>
+		<title lang="en">NV usertopics</title>
 
-		<description lang="en"><![CDATA[Adds the number of opened user-topics to the number of user-posts on all pages.]]></description>
 		<description lang="de"><![CDATA[Fügt die Anzahl der vom Benutzer eröffneten Themen zu der, der Beiträge in sämtlichen Dateien hinzu.]]></description>
+		<description lang="en"><![CDATA[Adds the number of opened user-topics to the number of user-posts on all pages.]]></description>
 
 		<author-notes lang="de"><![CDATA[Die MOD untersützt die "MOD Version Check"-MOD von Handymman´:
 http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
@@ -25,12 +25,12 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 			</author>
 		</author-group>
 
-		<mod-version>1.0.3</mod-version>
+		<mod-version>1.0.4</mod-version>
 
 		<installation>
 			<level>intermediate</level>
 			<time>1200</time>
-			<target-version>3.0.6</target-version>
+			<target-version>3.0.7-PL1</target-version>
 		</installation>
 
 		<link-group>
@@ -42,7 +42,7 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 
 		<history>
 			<entry>
-				<date>2010-MM-DD</date>
+				<date>2010-04-26</date>
 				<rev-version>1.0.4</rev-version>
 				<changelog lang="en">
 					<change><![CDATA[Missing language file on memberlist/group page (Bug #720)]]></change>
@@ -487,13 +487,13 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 			</edit>
 		</open>
 
-		<diy-instructions lang="en"><![CDATA[Don't forget to clear the cache!
-After the install, you have to resynchronise it. Therefor go to the ACP and do it (on the first page)
-If you want me to add your language file to the download, just leave me a pm:
-http://www.phpbb.com/community/ucp.php?i=pm&amp;mode=compose&amp;u=315319]]></diy-instructions>
-		<diy-instructions lang="de"><![CDATA[Nicht vergessen den Cache zuleeren!
-Nach dem Installieren muss der MOD resyncronisiert werden, Dafür ins ACP gehen und ausführen (auf der ersten Seite zufinden)
-Wenn ihr den MOD in eine weitere Sprache übersetzt habt, schickt mir doch eine pm:
-http://www.phpbb.com/community/ucp.php?i=pm&amp;mode=compose&amp;u=315319]]></diy-instructions>
+		<diy-instructions lang="de"><![CDATA[Leere den Cache im "Administrations-Bereich" (ACP) > "Allgemein" > "Den Cache leeren"
+
+Aktualisiere deine Styles:
+    "Administrations-Bereich" (ACP) > "Styles" > "Templates" > jedes > "Aktualisieren"]]></diy-instructions>
+		<diy-instructions lang="en"><![CDATA[Clear your cache in the "Administration Control Panel" (ACP) > "General" > "Purge the cache"
+
+Refresh your Styles:
+    "Administration Control Panel" (ACP) > "Styles" > "Templates" > each > "refresh"]]></diy-instructions>
 	</action-group>
 </mod>
