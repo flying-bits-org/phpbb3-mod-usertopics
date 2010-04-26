@@ -39,5 +39,13 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 			<file from="root/adm/mods/nv_usertopics_version.php" to="adm/mods/nv_usertopics_version.php" />
 			<file from="root/language/en/mods/info_acp_nv_usertopics.php" to="language/en/mods/info_acp_nv_usertopics.php" />
 		</copy>
+
+		<open src="memberlist.php">
+			<edit>
+				<find><![CDATA[$template_html = 'memberlist_body.html';]]></find>
+				<action type="after-add"><![CDATA[
+		$user->add_lang('mods/info_acp_nv_usertopics');]]></action>
+			</edit>
+		</open>
 	</action-group>
 </mod>

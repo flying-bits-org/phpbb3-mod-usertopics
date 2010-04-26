@@ -42,6 +42,14 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 
 		<history>
 			<entry>
+				<date>2010-MM-DD</date>
+				<rev-version>1.0.4</rev-version>
+				<changelog lang="en">
+					<change><![CDATA[Missing language file on memberlist/group page (Bug #720)]]></change>
+				</changelog>
+			</entry>
+
+			<entry>
 				<date>2009-09-13</date>
 				<rev-version>1.0.3</rev-version>
 				<changelog lang="en">
@@ -184,6 +192,11 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 			<edit>
 				<find><![CDATA['POSTS_IN_QUEUE'=> $member['posts_in_queue'],]]></find>
 				<action type="after-add"><![CDATA['TOPICS_IN_QUEUE'=> $member['topics_in_queue'],]]></action>
+			</edit>
+			<edit>
+				<find><![CDATA[$template_html = 'memberlist_body.html';]]></find>
+				<action type="after-add"><![CDATA[
+		$user->add_lang('mods/info_acp_nv_usertopics');]]></action>
 			</edit>
 			<edit>
 				<find><![CDATA[$sort_key_text = array('a' => $user->lang['SORT_USERNAME'], 'b' => $user->lang['SORT_LOCATION'], 'c' => $user->lang['SORT_JOINED'], 'd' => $user->lang['SORT_POST_COUNT'], 'f' => $user->lang['WEBSITE'], 'g' => $user->lang['ICQ'], 'h' => $user->lang['AIM'], 'i' => $user->lang['MSNM'], 'j' => $user->lang['YIM'], 'k' => $user->lang['JABBER']);]]></find>
