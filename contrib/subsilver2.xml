@@ -25,12 +25,12 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 			</author>
 		</author-group>
 
-		<mod-version>1.0.4</mod-version>
+		<mod-version>1.0.4.1</mod-version>
 
 		<installation>
 			<level>intermediate</level>
 			<time>900</time>
-			<target-version>3.0.7-PL1</target-version>
+			<target-version>3.0.9</target-version>
 		</installation>
 	</header>
 
@@ -54,8 +54,7 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 
 		<open src="styles/subsilver2/template/memberlist_view.html">
 			<edit>
-				<find><![CDATA[			<tr>
-				<td class="gen" align="{S_CONTENT_FLOW_END}" valign="top" nowrap="nowrap">{L_TOTAL_POSTS}: </td>
+				<find><![CDATA[				<td class="gen" align="{S_CONTENT_FLOW_END}" valign="top" nowrap="nowrap">{L_TOTAL_POSTS}: </td>
 				<td><b class="gen">{POSTS}</b><span class="genmed"><!-- IF POSTS_PCT --><br />[{POSTS_PCT} / {POSTS_DAY}]<!-- ENDIF -->
 				<!-- IF POSTS_IN_QUEUE and U_MCP_QUEUE --><br />[<a href="{U_MCP_QUEUE}">{L_POSTS_IN_QUEUE}</a>]<!-- ELSEIF POSTS_IN_QUEUE --><br />[{L_POSTS_IN_QUEUE}]<!-- ENDIF -->
 				<!-- IF S_DISPLAY_SEARCH --><br /><a href="{U_SEARCH_USER}">{L_SEARCH_USER_POSTS}</a><!-- ENDIF --></span></td>

@@ -25,12 +25,12 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 			</author>
 		</author-group>
 
-		<mod-version>1.0.4</mod-version>
+		<mod-version>1.0.4.1</mod-version>
 
 		<installation>
 			<level>intermediate</level>
 			<time>1200</time>
-			<target-version>3.0.7-PL1</target-version>
+			<target-version>3.0.9</target-version>
 		</installation>
 
 		<link-group>
@@ -253,7 +253,7 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 		<open src="includes/functions_admin.php">
 			<edit>
 				<find><![CDATA[	$sql = 'UPDATE ' . POSTS_TABLE . '
-		SET forum_id = ' . $forum_row['forum_id'] . ", topic_id = $topic_id
+		SET forum_id = ' . (int) $forum_row['forum_id'] . ", topic_id = $topic_id
 		WHERE " . $db->sql_in_set('post_id', $post_ids);
 	$db->sql_query($sql);]]></find>
 				<action type="before-add"><![CDATA[	$sql = 'SELECT p.poster_id
@@ -320,7 +320,7 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 			$sql_data[USERS_TABLE]['stat'][] = "user_lastpost_time = $current_time" . (($auth->acl_get('f_postcount', $data['forum_id']) && $post_approval) ? ', user_posts = user_posts + 1' : '');]]></find>
 				<inline-edit>
 						<inline-find><![CDATA[', user_posts = user_posts + 1]]></inline-find>
-						<inline-action type="after-add"><![CDATA[ , user_topics = user_topics + 1]]></inline-action>
+						<inline-action type="after-add"><![CDATA[, user_topics = user_topics + 1]]></inline-action>
 				</inline-edit>
 			</edit>
 		</open>

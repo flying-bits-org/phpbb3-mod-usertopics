@@ -36,7 +36,7 @@ http://www.phpbb.com/community/viewtopic.php?f=69&t=691155]]></author-notes>
 
 	<action-group>
 		<copy>
-			<file from="root/language/de/mods/info_acp_nv_usertopics.php" to="language/de/mods/info_acp_nv_usertopics.php" />
+			<file from="root/adm/mods/nv_usertopics_version.php" to="adm/mods/nv_usertopics_version.php" />
 		</copy>
 
 		<diy-instructions lang="de"><![CDATA[Leere den Cache im "Administrations-Bereich" (ACP) > "Allgemein" > "Den Cache leeren"

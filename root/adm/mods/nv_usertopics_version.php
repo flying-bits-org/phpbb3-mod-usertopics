@@ -25,7 +25,7 @@ class nv_usertopics_version
 			'author'	=> 'nickvergessen',
 			'title'		=> 'NV usertopics',
 			'tag'		=> 'nv_usertopics',
-			'version'	=> '1.0.4',
+			'version'	=> '1.0.4.1',
 			'file'		=> array('www.flying-bits.org', 'updatecheck', 'nv_usertopics.xml'),
 		);
 	}
